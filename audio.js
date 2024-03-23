@@ -34,3 +34,49 @@ function playGameOverSound() {
         oscillator.stop();
     }, 5000);
 }
+
+function playIntroMusic() {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    const audioContext = new AudioContext();
+
+    // Define frequencies for the melody
+    const melody = [
+        329.63, 391.99, 466.16, 466.16, 391.99, 329.63, 391.99, 466.16, 466.16, 391.99,
+        349.23, 391.99, 466.16, 466.16, 391.99, 349.23, 391.99, 466.16, 466.16, 391.99,
+        329.63, 391.99, 466.16, 466.16, 391.99, 329.63, 391.99, 466.16, 466.16, 391.99,
+        349.23, 391.99, 466.16, 466.16, 391.99, 349.23, 391.99, 466.16, 466.16, 391.99,
+        349.23, 391.99, 466.16, 466.16, 466.16, 466.16, 466.16, 466.16, 466.16, 466.16,
+        523.25, 587.33, 622.25, 622.25, 587.33, 523.25, 587.33, 622.25, 622.25, 587.33,
+        587.33, 659.26, 587.33, 523.25, 466.16
+    ];
+
+    // Create oscillator and gain node
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+
+    // Connect oscillator to gain node and gain node to the destination
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+
+    // Set properties
+    oscillator.type = 'sine'; // Sine wave
+    gainNode.gain.value = 0.2; // Volume
+
+    // Start the oscillator
+    oscillator.start();
+
+    // Schedule the melody
+    const startTime = audioContext.currentTime + 0.1; // Start slightly after current time
+    const tempo = 120; // Beats per minute
+    const beatDuration = 60 / tempo; // Duration of one beat in seconds
+
+    melody.forEach((frequency, index) => {
+        const time = startTime + index * beatDuration;
+        oscillator.frequency.setValueAtTime(frequency, time);
+        gainNode.gain.setValueAtTime(0.2, time);
+    });
+
+    // Stop the oscillator after the melody finishes
+    const endTime = startTime + melody.length * beatDuration;
+    oscillator.stop(endTime);
+}

@@ -35,6 +35,7 @@
     </div>
     <div id="startScreen" style="display: flex;" class="popup-container superPixelFont">
       <div class="popup-content">
+        <button class="audio-button" onclick="playIntroMusic()">🔉</button>
         <div class="start-image-container">
           <img src="assets/mike_tyson.png" class="start-image" />
           <span class="start-boxing-l" style="transform: rotate(90deg);">🥊</span>
@@ -113,10 +114,6 @@
   let speedIncreaseInterval; // Variable to hold speed increase interval ID
   let drawInterval; // Variable to hold draw interval ID
 
-  
-
-
-
   const backgroundLayer = document.getElementById('backgroundLayer');
   const backgroundImage = new Image();
   // backgroundImage.src = 'Jungle.jpg'; // Parallax background image
@@ -134,6 +131,7 @@
 
   drawBackground();
   displayHighScores();
+  
 </script>
 </body>
 </html>
