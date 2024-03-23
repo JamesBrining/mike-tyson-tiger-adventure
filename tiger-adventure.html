@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tiger Dodge</title>
+  <title>Mike Tyson's Tiger Adventure</title>
+  <link href="https://fonts.cdnfonts.com/css/public-pixel" rel="stylesheet">
   <link rel="stylesheet" href="tiger-adventure.css">
   <script type="text/javascript" src="draw.js"></script>
   <script type="text/javascript" src="high-score.js"></script>
@@ -12,7 +13,7 @@
 </head>
 <body>
 <div id="backgroundLayer"></div>
-<canvas id="gameCanvas"></canvas>
+<canvas id="gameCanvas" width="320" height="288"></canvas>
 <div id="highScoreDiv">
   <table id="highScoreTable">
     <thead>
@@ -28,12 +29,12 @@
   <div id="hourglass" class="spin"></div>
   <div id="timer">0s</div>
 </div>
-<div id="gameOverPopup" class="popup-container">
+<div id="gameOverPopup" class="popup-container superPixelFont">
   <div class="popup-content">
     <p>Game Over! Your score: <span id="finalScore"></span></p>
     <p>Enter your name:</p>
     <input type="text" id="playerNamePopup" placeholder="Enter your name">
-    <button onclick="restartGame()">Play Again</button>
+    <button onclick="restartGame()">🕹️ Play Again 🕹️</button>
   </div>
 </div>
 <div id="levelDisplay">Level: 1</div>
@@ -41,17 +42,17 @@
   const canvas = document.getElementById('gameCanvas');
   const ctx = canvas.getContext('2d');
 
-  const width = canvas.width = window.innerWidth;
-  const height = canvas.height = window.innerHeight - 100;
+  const width = canvas.width = 320;
+  const height = canvas.height = 288;
 
   let tigerX = width / 2;
   const tigerY = height - 50;
-  const tigerSize = 60; // Pixel size of the tiger
+  const tigerSize = 30; // Pixel size of the tiger
   const tigerColor = '#FFA500'; // Orange color
 
   let tysonX = width / 2;
   const tysonY = 25;
-  const tysonSize = 90;
+  const tysonSize = 45;
   let tysonDirection = 'left';
 
   let isLeftArrowPressed = false;
@@ -59,13 +60,13 @@
 
   let obstacles = [];
   let obstacleSpeed = 2;
-  const minObstacleWidth = 20;
-  const maxObstacleWidth = 20;
-  const minObstacleHeight = 20;
-  const maxObstacleHeight = 20;
+  const minObstacleWidth = 10;
+  const maxObstacleWidth = 10;
+  const minObstacleHeight = 10;
+  const maxObstacleHeight = 10;
   const minObstacleSpeed = 4;
   const maxObstacleSpeed = 8;
-  const numObstacles = 15;
+  const numObstacles = 1;
 
   let powerups = []
   let powerupSpeed = 1

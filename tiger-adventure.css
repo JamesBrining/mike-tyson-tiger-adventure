@@ -3,10 +3,18 @@ body {
     padding: 0;
     overflow: hidden;
     background-color: #f8f8f8;
-    font-family: Arial, sans-serif;
+    font-family: 'Public Pixel', Arial, sans-serif;
   }
+
   canvas {
     display: block;
+  }
+  #gameCanvas {
+    display: block;
+    margin-top: 150px !important;
+    margin: auto;
+    border: 2px solid black; 
+    image-rendering: pixelated;
   }
   #highScoreTable {
     position: absolute;
@@ -44,8 +52,8 @@ body {
   }
   .popup-content {
     background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 40px;
+    border-radius: 5px;
     text-align: center;
   }
   #levelDisplay {
