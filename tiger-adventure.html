@@ -17,9 +17,17 @@
 <div id="backgroundLayer"></div>
 <div id="main">
   <div id="leftContainer">
-    <div id="bigMikeSpeechContainer">
-      <div id="speech-bubble" class="bubble bottom">Hi, I'm Mike Tyson</div> 
-      <img src="assets/big_mike_tyson.png" id="bigMike"/>
+    <div id="levelDisplay">Level: 1</div>
+    <div id="highScoreDiv">
+      <table id="highScoreTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody id="highScoreList"></tbody>
+      </table>
     </div>
     <div id="timerDiv">
       <div id="hourglass" class="spin"></div>
@@ -47,27 +55,17 @@
         </div>
       </div>
     </div>
-    <div id="levelDisplay">Level: 1</div>
   </div>
   <div id="gameContainer">
     <canvas id="gameCanvas" width="320" height="288"></canvas>
   </div>
   <div id="rightContainer">
-    <div id="highScoreDiv">
-      <table id="highScoreTable">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Score</th>
-          </tr>
-        </thead>
-        <tbody id="highScoreList"></tbody>
-      </table>
+    <div id="bigMikeSpeechContainer">
+      <div id="speech-bubble" class="bubble bottom">Hi, I'm Mike Tyson</div> 
+      <img src="assets/big_mike_tyson.png" id="bigMike"/>
     </div>
   </div>
 </div>
-  
-  
   <script>
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');

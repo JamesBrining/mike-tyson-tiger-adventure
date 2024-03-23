@@ -16,15 +16,14 @@ body {
     margin-top: 97px !important;
     margin: auto;
     image-rendering: pixelated;
+    background-color: green;
   }
   #highScoreTable {
-    position: absolute;
-    top: 10px;
-    right: 10px;
     border-collapse: collapse;
     background-color: #f8f8f8;
-    padding: 20px;
+    margin-left: 10px;
   }
+
   #highScoreTable th, #highScoreTable td {
     border: 1px solid #ddd;
     padding: 8px;
@@ -116,14 +115,18 @@ input {
 #leftContainer{
   flex-basis: 33.33%; 
   display: flex;
-  align-items: center; 
+  align-items: left; 
   justify-content: center; 
+  height: 100vh;
+  flex-direction: column;
 }
 
 #rightContainer{
+  display: flex;
   flex-basis: 33.33%; 
   position: relative; 
   height: 100vh;
+  flex-direction: column-reverse;
 }
 
 #gameContainer{
@@ -143,12 +146,11 @@ input {
 }
 
 #bigMike {
-  width: 75%;
-  height: 75%;
+  width: 60%;
 }
 
 #bigMikeSpeechContainer{
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   display: flex;
   flex-direction: column;
