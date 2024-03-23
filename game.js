@@ -89,8 +89,6 @@ function startGame(){
       isRightArrowPressed = false;
     }
   });
-
-  createObstaclesIfNeeded();
   
   draw();
   setTimeout(() => {
