@@ -7,8 +7,7 @@ function createObstaclesIfNeeded() {
         const obstacleX = tysonX;
         const obstacleY = tysonY;
         const obstacleSpeed = Math.random() * (maxObstacleSpeed - minObstacleSpeed) + minObstacleSpeed;
-        const obstacleDirection = 'left'
-        obstacles.push({ x: obstacleX, y: obstacleY, width: obstacleWidth, height: obstacleHeight, speed: obstacleSpeed, direction: obstacleDirection });
+        obstacles.push({ x: obstacleX, y: obstacleY, width: obstacleWidth, height: obstacleHeight, speed: obstacleSpeed });
       }
     }
 }
