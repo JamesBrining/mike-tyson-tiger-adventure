@@ -119,8 +119,6 @@ function drawBackground() {
       });
 
     
-
-      console.log(tysonX);
       
     }
     drawInterval = requestAnimationFrame(draw);

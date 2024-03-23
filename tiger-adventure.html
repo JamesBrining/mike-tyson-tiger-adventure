@@ -25,6 +25,12 @@
       <div id="hourglass" class="spin"></div>
       <div id="timer">0s</div>
     </div>
+    <div id="startScreen" style="display: flex;" class="popup-container superPixelFont">
+      <div class="popup-content">
+        <p>Welcome to Mike Tyson's Tiger Adventure</p>
+        <button onclick="startGame()">🕹️ Begin 🕹️</button>
+      </div>
+    </div>
     <div id="gameOverPopup" class="popup-container superPixelFont">
       <div class="popup-content">
         <p>Game Over! Your score is <span id="finalScore"></span></p>
@@ -96,6 +102,7 @@
   const levelDuration = 10 * 1000; // 10 secs
   const speedIncrementDuration = 10000; // 10 seconds
 
+  let isGameStarted = false;
   let highScores = JSON.parse(localStorage.getItem('highScores')) || [];
   let gamePaused = true; // Variable to track game state
   let timerInterval; // Variable to hold timer interval ID
@@ -114,33 +121,13 @@
   let backgroundOffset = 0;
 
   document.addEventListener('keydown', function(event) {
-    if (event.code === 'ArrowLeft') {
-      isLeftArrowPressed = true;
-    } else if (event.code === 'ArrowRight') {
-      isRightArrowPressed = true;
+    if (event.code === 'Enter' && !isGameStarted) {
+      startGame()
     }
   });
 
-  document.addEventListener('keyup', function(event) {
-    if (event.code === 'ArrowLeft') {
-      isLeftArrowPressed = false;
-    } else if (event.code === 'ArrowRight') {
-      isRightArrowPressed = false;
-    }
-  });
-
-  createObstaclesIfNeeded();
-  displayHighScores();
   drawBackground();
-  draw();
-
-  // Start timer when the game starts
-  startTime = Date.now();
-  timerInterval = setInterval(updateTimer, 1000); // Start the timer
-
-  // Increase level and speed every 10 seconds
-  
-  speedIncreaseInterval = setInterval(increaseLevelAndSpeed, speedIncrementDuration);
+  displayHighScores();
 </script>
 </body>
 </html>
