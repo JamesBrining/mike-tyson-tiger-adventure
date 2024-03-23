@@ -22,11 +22,11 @@ function drawBackground() {
       if (isLeftArrowPressed && tigerX > 0) {
         tigerX -= 5;
       }
-      if (isRightArrowPressed && tigerX < (width - tigerSize) - 10) {
+      if (isRightArrowPressed && tigerX < (width - tigerSize)) {
         tigerX += 5;
       }
 
-      if(tysonX > 0 && tysonDirection === 'left'){
+      if(tysonX >= -5 && tysonDirection === 'left'){
 
         if(isTimePowerupActive){
           tysonX -= 1
@@ -36,7 +36,7 @@ function drawBackground() {
         }
       }
 
-      if(tysonX < (width - tysonSize) + 15 && tysonDirection === 'right'){
+      if(tysonX < (width - tysonSize) + 20 && tysonDirection === 'right'){
        
         if(isTimePowerupActive){
           tysonX += 1
@@ -46,17 +46,20 @@ function drawBackground() {
         }
       }
 
-      if(tysonX < 0){
+      if(tysonX <= -5){
         tysonDirection = 'right';
       }
 
 
-      if(tysonX >= ((width - tysonSize) + 15)){
+      if(tysonX >= ((width - tysonSize) + 20)){
         tysonDirection = 'left';
       }
 
+      setTimeout(() => {
+        createObstaclesIfNeeded(); // Create obstacles if needed
+      }, [1250])
+
       if (!gamePaused) { 
-      createObstaclesIfNeeded(); // Create obstacles if needed
       // createPowerupsIfNeeded()
 
       if(Math.random() < 0.0025) {
@@ -111,6 +114,8 @@ function drawBackground() {
           playGameOverSound();
           document.getElementById('finalScore').textContent = getScore(); // Corrected line
           document.getElementById('gameOverPopup').style.display = 'flex';
+          document.getElementById('bigMikeSpeechContainer').style.display = 'none';
+          document.getElementById('hourglass').classList.remove('spin')
           gamePaused = true; // Pause the game
           clearInterval(timerInterval); // Stop the timer
           clearInterval(speedIncreaseInterval); // Stop the speed increase
@@ -144,6 +149,9 @@ function drawBackground() {
     }, 5000);
   }
 
-  setInterval(displayRandomQuote, 10000);
-
-  displayRandomQuote();
+  
+  if(!gamePaused)
+  {
+    setInterval(displayRandomQuote, 10000);
+    displayRandomQuote();
+  }

@@ -45,6 +45,7 @@ function restartGame() {
     const playerName = document.getElementById('playerNamePopup').value;
     const timeElapsed = Math.floor((Date.now() - startTime) / 1000); // Calculate time elapsed in seconds
     document.getElementById('gameOverPopup').style.display = 'none';
+    document.getElementById('hourglass').classList.add('spin')
     setTimeout(() => {
       gamePaused = false
     }, [2000])
@@ -74,6 +75,7 @@ function restartGame() {
 function startGame(){
   isGameStarted = true
   document.getElementById("startScreen").style.display = 'none'
+  document.getElementById('hourglass').classList.add('spin')
   document.addEventListener('keydown', function(event) {
     if (event.code === 'ArrowLeft') {
       isLeftArrowPressed = true;
@@ -89,8 +91,6 @@ function startGame(){
       isRightArrowPressed = false;
     }
   });
-
-  createObstaclesIfNeeded();
   
   draw();
   setTimeout(() => {
