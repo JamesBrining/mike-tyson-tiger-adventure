@@ -74,7 +74,7 @@ function drawBackground() {
       ctx.clearRect(0, 0, width, height);
 
       const tiger = new Image();
-      tiger.src = 'tyson_tiger.png';
+      tiger.src = 'assets/tyson_tiger.png';
       ctx.drawImage(tiger, tigerX, tigerY, tigerSize, tigerSize);
 
       createObstaclesIfNeeded(); // Create obstacles if needed
