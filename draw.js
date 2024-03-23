@@ -16,7 +16,6 @@ function drawBackground() {
 
       const mikeTyson = new Image()
       mikeTyson.src = 'assets/mike_tyson.png'
-      console.log(height);
       ctx.drawImage(mikeTyson, tysonX, tysonY, tysonSize, tysonSize);
 
       createObstaclesIfNeeded(); // Create obstacles if needed
@@ -28,7 +27,6 @@ function drawBackground() {
         const index = (level - 1) % images.length;
         const obstacleImage = new Image();
         const levelImage = images[index]
-        console.log(levelImage);
         obstacleImage.src = `assets/${levelImage.src}`;
         ctx.drawImage(obstacleImage, obstacle.x, obstacle.y, levelImage.width, levelImage.height);
         obstacle.y += obstacle.speed;
@@ -53,6 +51,29 @@ function drawBackground() {
       if (isRightArrowPressed && tigerX < width - tigerSize) {
         tigerX += 5;
       }
+
+      if(tysonX > 0 && tysonDirection === 'left'){
+        tysonX -= 5;  
+      }
+
+      if(tysonX < width - tysonSize && tysonDirection === 'right'){
+        tysonX += 5;
+      }
+
+      if(tysonX < 0){
+        tysonDirection = 'right';
+      }
+
+      if(tysonX > width - tysonSize){
+        tysonDirection = 'left';
+      }
+
+
+
+
+
+
+
 
       drawInterval = requestAnimationFrame(draw);
     }
