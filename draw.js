@@ -51,10 +51,6 @@ function drawBackground() {
       }
 
 
-      console.log(tysonX)
-      console.log(width - tysonSize)
-      console.log(tysonX >= ((width - tysonSize) + 10))
-
       if(tysonX >= ((width - tysonSize) + 15)){
         tysonDirection = 'left';
       }
