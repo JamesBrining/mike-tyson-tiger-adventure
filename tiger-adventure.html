@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tiger Dodge</title>
+  <title>Mike Tyson's Tiger Adventure</title>
   <link rel="stylesheet" href="tiger-adventure.css">
   <script type="text/javascript" src="draw.js"></script>
   <script type="text/javascript" src="high-score.js"></script>
@@ -12,7 +12,7 @@
 </head>
 <body>
 <div id="backgroundLayer"></div>
-<canvas id="gameCanvas"></canvas>
+<canvas id="gameCanvas" width="320" height="288"></canvas>
 <div id="highScoreDiv">
   <table id="highScoreTable">
     <thead>
@@ -41,8 +41,8 @@
   const canvas = document.getElementById('gameCanvas');
   const ctx = canvas.getContext('2d');
 
-  const width = canvas.width = window.innerWidth;
-  const height = canvas.height = window.innerHeight - 100;
+  const width = canvas.width = 320;
+  const height = canvas.height = 288;
 
   let tigerX = width / 2;
   const tigerY = height - 50;
@@ -65,7 +65,7 @@
   const maxObstacleHeight = 20;
   const minObstacleSpeed = 4;
   const maxObstacleSpeed = 8;
-  const numObstacles = 15;
+  const numObstacles = 1;
 
   let score = 0;
   let startTime = null;

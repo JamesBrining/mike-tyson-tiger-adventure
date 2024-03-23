@@ -8,6 +8,13 @@ body {
   canvas {
     display: block;
   }
+  #gameCanvas {
+    display: block;
+    margin-top: 150px !important;
+    margin: auto;
+    border: 2px solid black; 
+    image-rendering: pixelated;
+  }
   #highScoreTable {
     position: absolute;
     top: 10px;
