@@ -114,6 +114,8 @@ function drawBackground() {
           playGameOverSound();
           document.getElementById('finalScore').textContent = getScore(); // Corrected line
           document.getElementById('gameOverPopup').style.display = 'flex';
+          document.getElementById('bigMikeSpeechContainer').style.display = 'none';
+          document.getElementById('hourglass').classList.remove('spin')
           gamePaused = true; // Pause the game
           clearInterval(timerInterval); // Stop the timer
           clearInterval(speedIncreaseInterval); // Stop the speed increase
@@ -147,6 +149,9 @@ function drawBackground() {
     }, 5000);
   }
 
-  setInterval(displayRandomQuote, 10000);
-
-  displayRandomQuote();
+  
+  if(!gamePaused)
+  {
+    setInterval(displayRandomQuote, 10000);
+    displayRandomQuote();
+  }

@@ -73,14 +73,14 @@ body {
     padding: 20px;
   }
 
-  #hourglass {
-    margin: 0 0 10px 0;
-    animation-name: spin;
-    animation-duration: 1000ms;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
+  .spin {
+    animation: spin 1000ms infinite linear;
+    width: fit-content;
+    text-align: center;
+    transform-origin: center;
   }
   #hourglass:before {
+    text-align: center;
     content: '⏳';
   }
 
@@ -154,6 +154,13 @@ input {
   align-items: center;
   display: flex;
   flex-direction: column;
+}
+
+#bigMikeSpeechContainerEndGame{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .start-image-container {
   display: flex;

@@ -30,7 +30,7 @@
       </table>
     </div>
     <div id="timerDiv">
-      <div id="hourglass" class="spin"></div>
+      <div id="hourglass"></div>
       <div id="timer">0s</div>
     </div>
     <div id="startScreen" style="display: flex;" class="popup-container superPixelFont">
@@ -49,6 +49,10 @@
       <div class="popup-content">
         <p>Game Over! Your score is <span id="finalScore"></span></p>
         <p>Enter your name:</p>
+        <div id="bigMikeSpeechContainerEndGame">
+          <div id="speech-bubble" class="bubble bottom">You thuck!</div> 
+          <img src="assets/big_mike_tyson.png" id="bigMike"/>
+        </div>
         <div class="inputContainer">
           <input type="text" id="playerNamePopup" placeholder="Enter your name">
           <button onclick="restartGame()">🕹️ Play Again 🕹️</button>
@@ -57,7 +61,7 @@
     </div>
   </div>
   <div id="gameContainer">
-    <canvas id="gameCanvas" width="320" height="288"></canvas>
+    <canvas id="gameCanvas" width="260" height="280"></canvas>
   </div>
   <div id="rightContainer">
     <div id="bigMikeSpeechContainer">
