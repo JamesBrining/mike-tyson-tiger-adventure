@@ -9,7 +9,7 @@ function drawBackground() {
   }
 
   function draw() {
-    if (!gamePaused) { // Only draw when the game is not paused
+    // Only draw when the game is not paused
       ctx.clearRect(0, 0, width, height);
 
       const tiger = new Image();
@@ -19,7 +19,43 @@ function drawBackground() {
       const mikeTyson = new Image()
       mikeTyson.src = 'assets/mike_tyson.png'
       ctx.drawImage(mikeTyson, tysonX, tysonY, tysonSize, tysonSize);
+      if (isLeftArrowPressed && tigerX > 0) {
+        tigerX -= 5;
+      }
+      if (isRightArrowPressed && tigerX < width - tigerSize) {
+        tigerX += 5;
+      }
 
+      if(tysonX > 0 && tysonDirection === 'left'){
+
+        if(isTimePowerupActive){
+          tysonX -= 1
+        }
+        else {
+          tysonX -= 5;  
+        }
+      }
+
+      if(tysonX < width - tysonSize && tysonDirection === 'right'){
+       
+        if(isTimePowerupActive){
+          tysonX += 1
+        }
+        else {
+          tysonX += 5;
+        }
+      }
+
+      if(tysonX < 0){
+        tysonDirection = 'right';
+      }
+
+
+      if(tysonX >= (width - tysonSize)){
+        tysonDirection = 'left';
+      }
+
+      if (!gamePaused) { 
       createObstaclesIfNeeded(); // Create obstacles if needed
       // createPowerupsIfNeeded()
 
@@ -28,6 +64,7 @@ function drawBackground() {
       }
 
       const powerup = powerups[0]
+      
 
       if(powerups.length > 0) {
         const timerPowerup = new Image()
@@ -78,44 +115,10 @@ function drawBackground() {
         }
       });
 
-      if (isLeftArrowPressed && tigerX > 0) {
-        tigerX -= 5;
-      }
-      if (isRightArrowPressed && tigerX < width - tigerSize) {
-        tigerX += 5;
-      }
-
-      if(tysonX > 0 && tysonDirection === 'left'){
-
-        if(isTimePowerupActive){
-          tysonX -= 1
-        }
-        else {
-          tysonX -= 5;  
-        }
-      }
-
-      if(tysonX < width - tysonSize && tysonDirection === 'right'){
-       
-        if(isTimePowerupActive){
-          tysonX += 1
-        }
-        else {
-          tysonX += 5;
-        }
-      }
-
-      if(tysonX < 0){
-        tysonDirection = 'right';
-      }
-
-
-      if(tysonX >= (width - tysonSize)){
-        tysonDirection = 'left';
-      }
+    
 
       console.log(tysonX);
       
-      drawInterval = requestAnimationFrame(draw);
     }
+    drawInterval = requestAnimationFrame(draw);
   }

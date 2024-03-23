@@ -81,10 +81,16 @@
   const speedIncrementDuration = 10000; // 10 seconds
 
   let highScores = JSON.parse(localStorage.getItem('highScores')) || [];
-  let gamePaused = false; // Variable to track game state
+  let gamePaused = true; // Variable to track game state
   let timerInterval; // Variable to hold timer interval ID
   let speedIncreaseInterval; // Variable to hold speed increase interval ID
   let drawInterval; // Variable to hold draw interval ID
+
+  setTimeout(() => {
+    gamePaused = false
+  }, [2000])
+
+
 
   const backgroundLayer = document.getElementById('backgroundLayer');
   const backgroundImage = new Image();
