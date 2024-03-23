@@ -22,7 +22,7 @@ function drawBackground() {
       if (isLeftArrowPressed && tigerX > 0) {
         tigerX -= 5;
       }
-      if (isRightArrowPressed && tigerX < (width - tigerSize) - 10) {
+      if (isRightArrowPressed && tigerX < (width - tigerSize)) {
         tigerX += 5;
       }
 
@@ -46,7 +46,7 @@ function drawBackground() {
         }
       }
 
-      if(tysonX < 0){
+      if(tysonX <= 0){
         tysonDirection = 'right';
       }
 
@@ -129,16 +129,7 @@ function drawBackground() {
     "Everyone has a plan until they get punched in the mouth.",
     "I'm the best ever. I'm the most brutal and vicious, and most ruthless champion there's ever been.",
     "I just want to conquer people and their souls.",
-    "Everyone has a plan until they get punched in the mouth.",
-    "I just want to conquer people and their souls.",
-    "I'm not a tycoon. I'm just a small guy from Brooklyn.",
-    "I could feel his muscle tissues collapse under my force. It's ludicrous these mortals even attempt to enter my realm.",
-    "I'm not Mother Teresa, but I'm not Charles Manson, either.",
-    "I don't try to intimidate anybody before a fight. That's nonsense. I intimidate people by hitting them.",
-    "I refuse to be beaten by people who believe in luck.",
-    "I just want to do what I do best, and that's fight. I love it.",
-    "Hard times fall upon everybody. Whatever it is, we're going to get out of it.",
-    "Everybody you fight is not your enemy and everybody that helps you is not your friend."
+    // Add more quotes as needed
   ];
   
   function displayRandomQuote() {
