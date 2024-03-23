@@ -32,7 +32,7 @@ function drawBackground() {
           tysonX -= 1
         }
         else {
-          tysonX -= 3.5;  
+          tysonX -= 5;  
         }
       }
 
@@ -42,7 +42,7 @@ function drawBackground() {
           tysonX += 1
         }
         else {
-          tysonX += 3.5;
+          tysonX += 5;
         }
       }
 
