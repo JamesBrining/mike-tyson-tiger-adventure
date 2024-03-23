@@ -4,10 +4,11 @@ function createObstaclesIfNeeded() {
       for (let i = 0; i < numObstacles; i++) {
         const obstacleWidth = Math.random() * (maxObstacleWidth - minObstacleWidth) + minObstacleWidth;
         const obstacleHeight = Math.random() * (maxObstacleHeight - minObstacleHeight) + minObstacleHeight;
-        const obstacleX = Math.random() * (width - obstacleWidth);
-        const obstacleY = -obstacleHeight; // Start obstacles from top of the screen
+        const obstacleX = tysonX;
+        const obstacleY = tysonY;
         const obstacleSpeed = Math.random() * (maxObstacleSpeed - minObstacleSpeed) + minObstacleSpeed;
-        obstacles.push({ x: obstacleX, y: obstacleY, width: obstacleWidth, height: obstacleHeight, speed: obstacleSpeed });
+        const obstacleDirection = 'left'
+        obstacles.push({ x: obstacleX, y: obstacleY, width: obstacleWidth, height: obstacleHeight, speed: obstacleSpeed, direction: obstacleDirection });
       }
     }
 }

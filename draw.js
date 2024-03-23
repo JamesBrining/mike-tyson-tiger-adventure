@@ -60,21 +60,14 @@ function drawBackground() {
         tysonX += 5;
       }
 
-      if(tysonX < 0){
+      if(tysonX === 0){
         tysonDirection = 'right';
       }
 
-      if(tysonX > width - tysonSize){
+      if(tysonX >= (width - tysonSize)){
         tysonDirection = 'left';
       }
-
-
-
-
-
-
-
-
+      
       drawInterval = requestAnimationFrame(draw);
     }
   }
