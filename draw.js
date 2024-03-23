@@ -6,69 +6,6 @@ function drawBackground() {
     requestAnimationFrame(drawBackground);
   }
 
-  // function drawTiger(x, y, size) {
-  //   // Tiger's body
-  //   ctx.fillStyle = tigerColor;
-  //   ctx.fillRect(x + 12, y + 4, 16, 4);
-  //   ctx.fillRect(x + 8, y + 8, 24, 4);
-  //   ctx.fillRect(x + 4, y + 12, 32, 16);
-  //   ctx.fillRect(x, y + 28, 40, 4);
-  //   ctx.fillRect(x + 4, y + 32, 8, 4);
-  //   ctx.fillRect(x + 28, y + 32, 8, 4);
-  //   ctx.fillRect(x + 8, y + 36, 2, 4);
-  //   ctx.fillRect(x + 10, y + 36, 20, 4);
-  //   ctx.fillRect(x + 30, y + 36, 2, 4);
-
-  //   // Tiger's head
-  //   ctx.fillRect(x + 12, y, 16, 8);
-  //   ctx.fillRect(x + 8, y + 4, 4, 4);
-  //   ctx.fillRect(x + 20, y + 4, 4, 4);
-  //   ctx.fillRect(x + 10, y + 8, 2, 4);
-  //   ctx.fillRect(x + 18, y + 8, 2, 4);
-  //   ctx.fillRect(x + 6, y + 12, 4, 2);
-  //   ctx.fillRect(x + 10, y + 12, 2, 2);
-  //   ctx.fillRect(x + 18, y + 12, 2, 2);
-  //   ctx.fillRect(x + 22, y + 12, 4, 2);
-  //   ctx.fillRect(x + 4, y + 14, 4, 2);
-  //   ctx.fillRect(x + 10, y + 14, 2, 2);
-  //   ctx.fillRect(x + 18, y + 14, 2, 2);
-  //   ctx.fillRect(x + 24, y + 14, 4, 2);
-  //   ctx.fillRect(x + 4, y + 16, 2, 2);
-  //   ctx.fillRect(x + 6, y + 16, 20, 2);
-  //   ctx.fillRect(x + 24, y + 16, 2, 2);
-  //   ctx.fillRect(x + 2, y + 18, 2, 4);
-  //   ctx.fillRect(x + 6, y + 18, 20, 4);
-  //   ctx.fillRect(x + 24, y + 18, 2, 4);
-  //   ctx.fillRect(x, y + 20, 2, 6);
-  //   ctx.fillRect(x + 2, y + 20, 2, 2);
-  //   ctx.fillRect(x + 8, y + 20, 2, 2);
-  //   ctx.fillRect(x + 18, y + 20, 2, 2);
-  //   ctx.fillRect(x + 26, y + 20, 2, 2);
-  //   ctx.fillRect(x + 28, y + 20, 2, 2);
-  //   ctx.fillRect(x, y + 22, 32, 2);
-  //   ctx.fillRect(x + 2, y + 24, 2, 2);
-  //   ctx.fillRect(x + 8, y + 24, 2, 2);
-  //   ctx.fillRect(x + 18, y + 24, 2, 2);
-  //   ctx.fillRect(x + 26, y + 24, 2, 2);
-  //   ctx.fillRect(x + 30, y + 24, 2, 2);
-  //   ctx.fillRect(x + 4, y + 26, 2, 2);
-  //   ctx.fillRect(x + 10, y + 26, 2, 2);
-  //   ctx.fillRect(x + 20, y + 26, 2, 2);
-  //   ctx.fillRect(x + 28, y + 26, 2, 2);
-  // }
-
-  // function drawCokeCan(obstacle) {
-  //   // Draw the coke can
-  //   ctx.fillStyle = 'red'; // Color of the coke can
-  //   // Draw top of the can
-  //   ctx.fillRect(obstacle.x + 12, obstacle.y, 16, 4);
-  //   // Draw sides of the can
-  //   ctx.fillRect(obstacle.x + 8, obstacle.y + 4, 4, 16);
-  //   ctx.fillRect(obstacle.x + 28, obstacle.y + 4, 4, 16);
-  //   // Draw bottom of the can
-  //   ctx.fillRect(obstacle.x + 8, obstacle.y + 20, 24, 4);
-  // }
-
   function draw() {
     if (!gamePaused) { // Only draw when the game is not paused
       ctx.clearRect(0, 0, width, height);
@@ -77,45 +14,22 @@ function drawBackground() {
       tiger.src = 'assets/tyson_tiger.png';
       ctx.drawImage(tiger, tigerX, tigerY, tigerSize, tigerSize);
 
-      
-      
+      const mikeTyson = new Image()
+      mikeTyson.src = 'assets/mike_tyson.png'
+      ctx.drawImage(mikeTyson, tysonX, tysonY, tysonSize, tysonSize);
 
       createObstaclesIfNeeded(); // Create obstacles if needed
 
-      if(Math.random() < 0.009) {
-        createPowerupsIfNeeded()
-      }
-
-      const powerup = powerups[0]
-
-      
-
-      if(powerups.length > 0) {
-        const timerPowerup = new Image()
-        timerPowerup.src = 'assets/clock.png'
-        ctx.drawImage(timerPowerup, powerup.x, powerup.y, powerup.width, powerup.height)
-        powerup.y += powerup.speed;
-      }
-
       obstacles.forEach(obstacle => {
-        const boxingGlove = new Image();
-        boxingGlove.src = 'assets/boxing_glove_main.png';
-        ctx.drawImage(boxingGlove, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+        // ctx.fillStyle = 'red';
+        // ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+        const images = [{src: 'boxing_glove_main.png', height: 34, width: 24}, {src:'beer.png', height: 58, width: 14}, {src: 'belt.png', height: 26, width: 62}];
+        const index = (level - 1) % images.length;
+        const obstacleImage = new Image();
+        const levelImage = images[index]
+        obstacleImage.src = `assets/${levelImage.src}`;
+        ctx.drawImage(obstacleImage, obstacle.x, obstacle.y, levelImage.width, levelImage.height);
         obstacle.y += obstacle.speed;
-        if(powerup) {
-          if(
-            tigerX < powerup.x + powerup.width &&
-            tigerX + tigerSize > powerup.x &&
-            tigerY < powerup.y + powerup.height &&
-            tigerY + tigerSize > powerup.y
-          ) {
-            isTimePowerupActive = true
-            
-            setTimeout(() => {
-              isTimePowerupActive = false
-            }, 5000)
-          }
-        }
         if (
           tigerX < obstacle.x + obstacle.width &&
           tigerX + tigerSize > obstacle.x &&
@@ -137,6 +51,29 @@ function drawBackground() {
       if (isRightArrowPressed && tigerX < width - tigerSize) {
         tigerX += 5;
       }
+
+      if(tysonX > 0 && tysonDirection === 'left'){
+        tysonX -= 5;  
+      }
+
+      if(tysonX < width - tysonSize && tysonDirection === 'right'){
+        tysonX += 5;
+      }
+
+      if(tysonX < 0){
+        tysonDirection = 'right';
+      }
+
+      if(tysonX > width - tysonSize){
+        tysonDirection = 'left';
+      }
+
+
+
+
+
+
+
 
       drawInterval = requestAnimationFrame(draw);
     }

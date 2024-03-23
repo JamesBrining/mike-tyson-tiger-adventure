@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="tiger-adventure.css">
   <script type="text/javascript" src="draw.js"></script>
   <script type="text/javascript" src="high-score.js"></script>
+  <script type="text/javascript" src="game.js"></script>
+  <script type="text/javascript" src="timer.js"></script>
 </head>
 <body>
 <div id="backgroundLayer"></div>
@@ -22,7 +24,10 @@
     <tbody id="highScoreList"></tbody>
   </table>
 </div>
-<div id="timerDiv">Timer: 0s</div>
+<div id="timerDiv">
+  <div id="hourglass" class="spin"></div>
+  <div id="timer">0s</div>
+</div>
 <div id="gameOverPopup" class="popup-container">
   <div class="popup-content">
     <p>Game Over! Your score: <span id="finalScore"></span></p>
@@ -43,6 +48,11 @@
   const tigerY = height - 50;
   const tigerSize = 60; // Pixel size of the tiger
   const tigerColor = '#FFA500'; // Orange color
+
+  let tysonX = width / 2;
+  const tysonY = 25;
+  const tysonSize = 90;
+  let tysonDirection = 'left';
 
   let isLeftArrowPressed = false;
   let isRightArrowPressed = false;
@@ -73,51 +83,10 @@
   let speedIncreaseInterval; // Variable to hold speed increase interval ID
   let drawInterval; // Variable to hold draw interval ID
 
-  let isTimePowerupActive = false
-
   const backgroundLayer = document.getElementById('backgroundLayer');
   const backgroundImage = new Image();
   // backgroundImage.src = 'Jungle.jpg'; // Parallax background image
   let backgroundOffset = 0;
-
-  function createObstaclesIfNeeded() {
-    if (obstacles.length === 0 || obstacles.every(obstacle => obstacle.y > height)) {
-      obstacles = [];
-      // console.log(obstacles)
-      for (let i = 0; i < numObstacles; i++) {
-        const obstacleWidth = Math.random() * (maxObstacleWidth - minObstacleWidth) + minObstacleWidth;
-        const obstacleHeight = Math.random() * (maxObstacleHeight - minObstacleHeight) + minObstacleHeight;
-        const obstacleX = Math.random() * (width - obstacleWidth);
-        const obstacleY = -obstacleHeight; // Start obstacles from top of the screen
-        console.log((Math.random() * (maxObstacleSpeed - minObstacleSpeed) + minObstacleSpeed) / 2)
-        console.log(isTimePowerupActive)
-        const obstacleSpeed = isTimePowerupActive ? (Math.random() * (maxObstacleSpeed - minObstacleSpeed) + minObstacleSpeed) / 2 : Math.random() * (maxObstacleSpeed - minObstacleSpeed) + minObstacleSpeed;
-        obstacles.push({ x: obstacleX, y: obstacleY, width: obstacleWidth, height: obstacleHeight, speed: obstacleSpeed });
-      }
-    }
-  }
-
-  function createPowerupsIfNeeded() {
-    if(powerups.length !== 1 && Math.random() < 0.5) {
-      powerups = []
-      for (let i = 0; i < 1; i++){
-        const powerupWidth = 55;
-        const powerupHeight = 55
-        const powerupX = Math.random() * (width - powerupWidth)
-        const powerupY = -powerupHeight
-        const powerupSpeed = 3.56
-
-        powerups.push({ x: powerupX, y: powerupY, width: powerupWidth, height: powerupHeight, speed: powerupSpeed})
-      }
-    }
-  }
-
-  function increaseLevelAndSpeed() {
-    level++;
-    powerups = []
-    document.getElementById('levelDisplay').innerText = 'Level: ' + level;
-    obstacleSpeed += 0.5;
-  }
 
   document.addEventListener('keydown', function(event) {
     if (event.code === 'ArrowLeft') {
@@ -135,34 +104,6 @@
     }
   });
 
-  function restartGame() {
-    const playerName = document.getElementById('playerNamePopup').value;
-    if (playerName.trim() === '') {
-      alert('Please enter your name!');
-      return;
-    }
-    const timeElapsed = Math.floor((Date.now() - startTime) / 1000); // Calculate time elapsed in seconds
-    saveHighScore(playerName, timeElapsed); // Save high score with correct name and score
-    document.getElementById('gameOverPopup').style.display = 'none';
-    gamePaused = false; // Unpause the game
-    tigerX = width / 2;
-    startTime = Date.now();
-    level = 1;
-    document.getElementById('levelDisplay').innerText = 'Level: ' + level;
-    obstacleSpeed = 2;
-    obstacles = []; // Reset obstacles
-    powerups = []
-    createObstaclesIfNeeded(); // Create new obstacles
-    score = 0; // Reset the score
-    updateTimer(); // Update the timer display
-    clearInterval(timerInterval); // Clear the timer interval
-    clearInterval(speedIncreaseInterval); // Clear the speed increase interval
-    clearInterval(drawInterval); // Clear the draw interval
-    timerInterval = setInterval(updateTimer, 1000); // Restart the timer
-    speedIncreaseInterval = setInterval(increaseLevelAndSpeed, speedIncrementDuration); // Restart the speed increase interval
-    drawInterval = requestAnimationFrame(draw); // Restart the draw interval
-}
-
   createObstaclesIfNeeded();
   displayHighScores();
   drawBackground();
@@ -175,16 +116,6 @@
   // Increase level and speed every 10 seconds
   
   speedIncreaseInterval = setInterval(increaseLevelAndSpeed, speedIncrementDuration);
-//   speedIncreaseInterval = setInterval(() => {
-//     level++;
-//     document.getElementById('levelDisplay').innerText = 'Level: ' + level;
-//     increaseLevelAndSpeed(); // Also increase the speed
-// }, speedIncrementDuration); // Change interval to 10000 milliseconds (10 seconds)
-
-  function updateTimer() {
-    const timeElapsed = Math.floor((Date.now() - startTime) / 1000); // Time in seconds
-    document.getElementById('timerDiv').innerText = 'Time: ' + timeElapsed + 's';
-  }
 </script>
 </body>
 </html>
