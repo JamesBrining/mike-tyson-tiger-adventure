@@ -86,16 +86,29 @@ function drawBackground() {
       }
 
       if(tysonX > 0 && tysonDirection === 'left'){
-        tysonX -= 5;  
+
+        if(isTimePowerupActive){
+          tysonX -= 1
+        }
+        else {
+          tysonX -= 5;  
+        }
       }
 
       if(tysonX < width - tysonSize && tysonDirection === 'right'){
-        tysonX += 5;
+       
+        if(isTimePowerupActive){
+          tysonX += 1
+        }
+        else {
+          tysonX += 5;
+        }
       }
 
       if(tysonX < 0){
         tysonDirection = 'right';
       }
+
 
       if(tysonX >= (width - tysonSize)){
         tysonDirection = 'left';
