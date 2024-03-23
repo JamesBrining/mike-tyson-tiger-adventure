@@ -91,7 +91,11 @@ function startGame(){
   });
 
   createObstaclesIfNeeded();
+  
   draw();
+  setTimeout(() => {
+    gamePaused = false
+  }, [1250])
 
   // Start timer when the game starts
   startTime = Date.now();

@@ -22,7 +22,7 @@ function drawBackground() {
       if (isLeftArrowPressed && tigerX > 0) {
         tigerX -= 5;
       }
-      if (isRightArrowPressed && tigerX < width - tigerSize) {
+      if (isRightArrowPressed && tigerX < (width - tigerSize) - 10) {
         tigerX += 5;
       }
 
@@ -36,7 +36,7 @@ function drawBackground() {
         }
       }
 
-      if(tysonX < width - tysonSize && tysonDirection === 'right'){
+      if(tysonX < (width - tysonSize) + 15 && tysonDirection === 'right'){
        
         if(isTimePowerupActive){
           tysonX += 1
@@ -51,7 +51,11 @@ function drawBackground() {
       }
 
 
-      if(tysonX >= (width - tysonSize)){
+      console.log(tysonX)
+      console.log(width - tysonSize)
+      console.log(tysonX >= ((width - tysonSize) + 10))
+
+      if(tysonX >= ((width - tysonSize) + 15)){
         tysonDirection = 'left';
       }
 
