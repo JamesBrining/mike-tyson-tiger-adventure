@@ -14,6 +14,11 @@ function drawBackground() {
       tiger.src = 'assets/tyson_tiger.png';
       ctx.drawImage(tiger, tigerX, tigerY, tigerSize, tigerSize);
 
+      const mikeTyson = new Image()
+      mikeTyson.src = 'assets/mike_tyson.png'
+      console.log(height);
+      ctx.drawImage(mikeTyson, tysonX, tysonY, tysonSize, tysonSize);
+
       createObstaclesIfNeeded(); // Create obstacles if needed
 
       obstacles.forEach(obstacle => {
