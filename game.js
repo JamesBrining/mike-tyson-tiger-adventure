@@ -24,8 +24,8 @@ function createPowerupsIfNeeded() {
   if(powerups.length !== 1 && Math.random() < 0.5) {
     powerups = []
     for (let i = 0; i < 1; i++){
-      const powerupWidth = 55;
-      const powerupHeight = 55
+      const powerupWidth = 30;
+      const powerupHeight = 30
       const powerupX = Math.random() * (width - powerupWidth)
       const powerupY = -powerupHeight
       const powerupSpeed = 2

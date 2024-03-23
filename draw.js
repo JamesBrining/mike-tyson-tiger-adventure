@@ -67,12 +67,12 @@ function drawBackground() {
           tigerY < obstacle.y + obstacle.height &&
           tigerY + tigerSize > obstacle.y
         ) {
-          // document.getElementById('finalScore').textContent = getScore(); // Corrected line
-          // document.getElementById('gameOverPopup').style.display = 'flex';
-          // gamePaused = true; // Pause the game
-          // clearInterval(timerInterval); // Stop the timer
-          // clearInterval(speedIncreaseInterval); // Stop the speed increase
-          // cancelAnimationFrame(drawInterval); // Stop the draw loop
+          document.getElementById('finalScore').textContent = getScore(); // Corrected line
+          document.getElementById('gameOverPopup').style.display = 'flex';
+          gamePaused = true; // Pause the game
+          clearInterval(timerInterval); // Stop the timer
+          clearInterval(speedIncreaseInterval); // Stop the speed increase
+          cancelAnimationFrame(drawInterval); // Stop the draw loop
         }
       });
 
