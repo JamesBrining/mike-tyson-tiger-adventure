@@ -6,6 +6,8 @@
   <title>Mike Tyson's Tiger Adventure</title>
   <link href="https://fonts.cdnfonts.com/css/public-pixel" rel="stylesheet">
   <link rel="stylesheet" href="tiger-adventure.css">
+  <link rel="stylesheet" href="speechbubble.css">
+  <script type="text/javascript" src="audio.js"></script>
   <script type="text/javascript" src="draw.js"></script>
   <script type="text/javascript" src="high-score.js"></script>
   <script type="text/javascript" src="game.js"></script>
@@ -13,37 +15,51 @@
 </head>
 <body>
 <div id="backgroundLayer"></div>
-<canvas id="gameCanvas" width="320" height="288"></canvas>
-<div id="highScoreDiv">
-  <table id="highScoreTable">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Score</th>
-      </tr>
-    </thead>
-    <tbody id="highScoreList"></tbody>
-  </table>
-</div>
-<div id="timerDiv">
-  <div id="hourglass" class="spin"></div>
-  <div id="timer">0s</div>
-</div>
-<div id="gameOverPopup" class="popup-container superPixelFont">
-  <div class="popup-content">
-    <p>Game Over! Your score is <span id="finalScore"></span></p>
-    <p>Enter your name:</p>
-    <div class="inputContainer">
-      <input type="text" id="playerNamePopup" placeholder="Enter your name">
-      <button onclick="restartGame()">🕹️ Play Again 🕹️</button>
+<div id="main">
+  <div id="leftContainer">
+    <div id="bigMikeSpeechContainer">
+      <div id="speech-bubble" class="bubble bottom">Hi, I'm Mike Tyson</div> 
+      <img src="assets/big_mike_tyson.png" id="bigMike"/>
+    </div>
+    <div id="timerDiv">
+      <div id="hourglass" class="spin"></div>
+      <div id="timer">0s</div>
+    </div>
+    <div id="gameOverPopup" class="popup-container superPixelFont">
+      <div class="popup-content">
+        <p>Game Over! Your score is <span id="finalScore"></span></p>
+        <p>Enter your name:</p>
+        <div class="inputContainer">
+          <input type="text" id="playerNamePopup" placeholder="Enter your name">
+          <button onclick="restartGame()">🕹️ Play Again 🕹️</button>
+        </div>
+      </div>
+    </div>
+    <div id="levelDisplay">Level: 1</div>
+  </div>
+  <div id="gameContainer">
+    <canvas id="gameCanvas" width="320" height="288"></canvas>
+  </div>
+  <div id="rightContainer">
+    <div id="highScoreDiv">
+      <table id="highScoreTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody id="highScoreList"></tbody>
+      </table>
     </div>
   </div>
 </div>
-<div id="levelDisplay">Level: 1</div>
-<script>
-  const canvas = document.getElementById('gameCanvas');
-  const ctx = canvas.getContext('2d');
-
+  
+  
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    
   const width = canvas.width = 243;
   const height = canvas.height = 260;
 

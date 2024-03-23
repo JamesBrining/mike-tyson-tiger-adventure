@@ -4,6 +4,8 @@ body {
     overflow: hidden;
     background-color: #f8f8f8;
     font-family: 'Public Pixel', Arial, sans-serif;
+    display: flex;
+    justify-content: space-between;
   }
 
   canvas {
@@ -109,4 +111,45 @@ input {
 @keyframes spin {
     from {transform:rotate(0deg);}
     to {transform:rotate(360deg);}
+}
+
+#leftContainer{
+  flex-basis: 33.33%; 
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+}
+
+#rightContainer{
+  flex-basis: 33.33%; 
+  position: relative; 
+  height: 100vh;
+}
+
+#gameContainer{
+  flex-grow: 1; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#main{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+#bigMike {
+  width: 75%;
+  height: 75%;
+}
+
+#bigMikeSpeechContainer{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
