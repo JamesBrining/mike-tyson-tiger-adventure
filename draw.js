@@ -23,7 +23,7 @@ function drawBackground() {
       obstacles.forEach(obstacle => {
         // ctx.fillStyle = 'red';
         // ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-        const images = [{src: 'boxing_glove_main.png', height: 34, width: 24}, {src:'beer.png', height: 58, width: 14}, {src: 'belt.png', height: 26, width: 62}];
+        const images = [{src: 'boxing_glove_main.png', height: 17, width: 12}, {src:'beer.png', height: 29, width: 7}, {src: 'belt.png', height: 13, width: 31}];
         const index = (level - 1) % images.length;
         const obstacleImage = new Image();
         const levelImage = images[index]
