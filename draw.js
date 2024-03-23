@@ -127,3 +127,27 @@ function drawBackground() {
     }
     drawInterval = requestAnimationFrame(draw);
   }
+
+  const mikeTysonQuotes = [
+    "Everyone has a plan until they get punched in the mouth.",
+    "I'm the best ever. I'm the most brutal and vicious, and most ruthless champion there's ever been.",
+    "I just want to conquer people and their souls.",
+    // Add more quotes as needed
+  ];
+  
+  function displayRandomQuote() {
+    const randomIndex = Math.floor(Math.random() * mikeTysonQuotes.length);
+    const randomQuote = mikeTysonQuotes[randomIndex];
+    const speechBubble = document.getElementById('speech-bubble');
+    speechBubble.textContent = randomQuote; // Set the speech bubble text to the random quote
+    speechBubble.style.opacity = '1'; // Make the speech bubble visible
+  
+    // // Hide the speech bubble after 5 seconds
+    setTimeout(() => {
+      speechBubble.style.opacity = '0';
+    }, 5000);
+  }
+
+  setInterval(displayRandomQuote, 10000);
+
+  displayRandomQuote();
