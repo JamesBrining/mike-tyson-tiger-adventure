@@ -32,7 +32,7 @@ function drawBackground() {
           tysonX -= 1
         }
         else {
-          tysonX -= 5;  
+          tysonX -= 3.5;  
         }
       }
 
@@ -42,7 +42,7 @@ function drawBackground() {
           tysonX += 1
         }
         else {
-          tysonX += 5;
+          tysonX += 3.5;
         }
       }
 
@@ -120,7 +120,6 @@ function drawBackground() {
 
     
 
-      console.log(tysonX);
       
     }
     drawInterval = requestAnimationFrame(draw);
