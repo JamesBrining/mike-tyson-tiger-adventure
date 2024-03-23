@@ -31,10 +31,12 @@
 </div>
 <div id="gameOverPopup" class="popup-container superPixelFont">
   <div class="popup-content">
-    <p>Game Over! Your score: <span id="finalScore"></span></p>
+    <p>Game Over! Your score is <span id="finalScore"></span></p>
     <p>Enter your name:</p>
-    <input type="text" id="playerNamePopup" placeholder="Enter your name">
-    <button onclick="restartGame()">🕹️ Play Again 🕹️</button>
+    <div class="inputContainer">
+      <input type="text" id="playerNamePopup" placeholder="Enter your name">
+      <button onclick="restartGame()">🕹️ Play Again 🕹️</button>
+    </div>
   </div>
 </div>
 <div id="levelDisplay">Level: 1</div>
