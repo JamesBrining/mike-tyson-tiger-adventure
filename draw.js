@@ -1,9 +1,11 @@
 function drawBackground() {
+    const backgroundLayer = document.getElementById('backgroundLayer');
+    const backgroundImage = new Image();
+    backgroundImage.src = 'assets/gameboy-80-center.png';
     backgroundLayer.style.background = `url('${backgroundImage.src}')`;
-    backgroundLayer.style.backgroundSize = 'cover';
-    backgroundLayer.style.backgroundPosition = `center ${backgroundOffset}px`;
-    backgroundOffset += 1; // Adjust speed of parallax effect
-    requestAnimationFrame(drawBackground);
+    backgroundLayer.style.backgroundSize = 'contain';
+    backgroundLayer.style.backgroundPosition = `center`;
+    backgroundLayer.style.backgroundRepeat = 'no-repeat'
   }
 
   function draw() {
@@ -87,20 +89,35 @@ function drawBackground() {
       }
 
       if(tysonX > 0 && tysonDirection === 'left'){
-        tysonX -= 5;  
+
+        if(isTimePowerupActive){
+          tysonX -= 1
+        }
+        else {
+          tysonX -= 5;  
+        }
       }
 
       if(tysonX < width - tysonSize && tysonDirection === 'right'){
-        tysonX += 5;
+       
+        if(isTimePowerupActive){
+          tysonX += 1
+        }
+        else {
+          tysonX += 5;
+        }
       }
 
-      if(tysonX === 0){
+      if(tysonX < 0){
         tysonDirection = 'right';
       }
+
 
       if(tysonX >= (width - tysonSize)){
         tysonDirection = 'left';
       }
+
+      console.log(tysonX);
       
       drawInterval = requestAnimationFrame(draw);
     }

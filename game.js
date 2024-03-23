@@ -43,12 +43,7 @@ function increaseLevelAndSpeed() {
 
 function restartGame() {
     const playerName = document.getElementById('playerNamePopup').value;
-    if (playerName.trim() === '') {
-        alert('Please enter your name!');
-        return;
-    }
     const timeElapsed = Math.floor((Date.now() - startTime) / 1000); // Calculate time elapsed in seconds
-    saveHighScore(playerName, timeElapsed); // Save high score with correct name and score
     document.getElementById('gameOverPopup').style.display = 'none';
     gamePaused = false; // Unpause the game
     tigerX = width / 2;
@@ -67,4 +62,9 @@ function restartGame() {
     timerInterval = setInterval(updateTimer, 1000); // Restart the timer
     speedIncreaseInterval = setInterval(increaseLevelAndSpeed, speedIncrementDuration); // Restart the speed increase interval
     drawInterval = requestAnimationFrame(draw); // Restart the draw interval
+    if (playerName.trim() !== '') {
+      saveHighScore(playerName, timeElapsed);
+      document.getElementById('playerNamePopup').value = '';
+        
+    }
 }
