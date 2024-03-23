@@ -19,6 +19,37 @@ function drawBackground() {
       ctx.drawImage(mikeTyson, tysonX, tysonY, tysonSize, tysonSize);
 
       createObstaclesIfNeeded(); // Create obstacles if needed
+      // createPowerupsIfNeeded()
+
+      if(Math.random() < 0.0025) {
+        createPowerupsIfNeeded()
+      }
+
+      const powerup = powerups[0]
+
+      if(powerups.length > 0) {
+        const timerPowerup = new Image()
+        timerPowerup.src = 'assets/clock.png'
+        ctx.drawImage(timerPowerup, powerup.x, powerup.y, powerup.width, powerup.height)
+        powerup.y += powerup.speed;
+      }
+
+
+      if(powerup) {
+        if(
+          tigerX < powerup.x + powerup.width &&
+          tigerX + tigerSize > powerup.x &&
+          tigerY < powerup.y + powerup.height &&
+          tigerY + tigerSize > powerup.y
+        ) {
+          isTimePowerupActive = true
+          powerup.x = -9999 // flakey move to side
+          setTimeout(() => {
+            isTimePowerupActive = false
+            powerups = []
+          }, 5000)
+        }
+      }
 
       obstacles.forEach(obstacle => {
         // ctx.fillStyle = 'red';
@@ -36,12 +67,12 @@ function drawBackground() {
           tigerY < obstacle.y + obstacle.height &&
           tigerY + tigerSize > obstacle.y
         ) {
-          document.getElementById('finalScore').textContent = getScore(); // Corrected line
-          document.getElementById('gameOverPopup').style.display = 'flex';
-          gamePaused = true; // Pause the game
-          clearInterval(timerInterval); // Stop the timer
-          clearInterval(speedIncreaseInterval); // Stop the speed increase
-          cancelAnimationFrame(drawInterval); // Stop the draw loop
+          // document.getElementById('finalScore').textContent = getScore(); // Corrected line
+          // document.getElementById('gameOverPopup').style.display = 'flex';
+          // gamePaused = true; // Pause the game
+          // clearInterval(timerInterval); // Stop the timer
+          // clearInterval(speedIncreaseInterval); // Stop the speed increase
+          // cancelAnimationFrame(drawInterval); // Stop the draw loop
         }
       });
 
