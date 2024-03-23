@@ -16,7 +16,6 @@ function drawBackground() {
 
       const mikeTyson = new Image()
       mikeTyson.src = 'assets/mike_tyson.png'
-      console.log(height);
       ctx.drawImage(mikeTyson, tysonX, tysonY, tysonSize, tysonSize);
 
       createObstaclesIfNeeded(); // Create obstacles if needed
@@ -24,9 +23,12 @@ function drawBackground() {
       obstacles.forEach(obstacle => {
         // ctx.fillStyle = 'red';
         // ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-        const boxingGlove = new Image();
-        boxingGlove.src = 'assets/boxing_glove_main.png';
-        ctx.drawImage(boxingGlove, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+        const images = [{src: 'boxing_glove_main.png', height: 34, width: 24}, {src:'beer.png', height: 58, width: 14}, {src: 'belt.png', height: 26, width: 62}];
+        const index = (level - 1) % images.length;
+        const obstacleImage = new Image();
+        const levelImage = images[index]
+        obstacleImage.src = `assets/${levelImage.src}`;
+        ctx.drawImage(obstacleImage, obstacle.x, obstacle.y, levelImage.width, levelImage.height);
         obstacle.y += obstacle.speed;
         if (
           tigerX < obstacle.x + obstacle.width &&
@@ -49,6 +51,29 @@ function drawBackground() {
       if (isRightArrowPressed && tigerX < width - tigerSize) {
         tigerX += 5;
       }
+
+      if(tysonX > 0 && tysonDirection === 'left'){
+        tysonX -= 5;  
+      }
+
+      if(tysonX < width - tysonSize && tysonDirection === 'right'){
+        tysonX += 5;
+      }
+
+      if(tysonX < 0){
+        tysonDirection = 'right';
+      }
+
+      if(tysonX > width - tysonSize){
+        tysonDirection = 'left';
+      }
+
+
+
+
+
+
+
 
       drawInterval = requestAnimationFrame(draw);
     }
