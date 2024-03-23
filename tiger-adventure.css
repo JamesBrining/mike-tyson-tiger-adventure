@@ -16,6 +16,7 @@ body {
     margin-top: 97px !important;
     margin: auto;
     image-rendering: pixelated;
+    background-color: green;
   }
   #highScoreTable {
     position: absolute;
