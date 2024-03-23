@@ -11,9 +11,8 @@ body {
   }
   #gameCanvas {
     display: block;
-    margin-top: 150px !important;
+    margin-top: 97px !important;
     margin: auto;
-    border: 2px solid black; 
     image-rendering: pixelated;
   }
   #highScoreTable {
