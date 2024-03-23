@@ -30,4 +30,7 @@ function playGameOverSound() {
       oscillator.frequency.setValueAtTime(freq, context.currentTime + index * (noteDuration / 1000));
       oscillator.frequency.setValueAtTime(freq, context.currentTime + (index + 0.5) * (noteDuration / 1000)); // This adds a little "pause" between each note
     });
+    setTimeout(function () {
+        oscillator.stop();
+    }, 5000);
 }
