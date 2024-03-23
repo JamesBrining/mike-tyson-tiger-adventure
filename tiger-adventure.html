@@ -7,6 +7,7 @@
   <link href="https://fonts.cdnfonts.com/css/public-pixel" rel="stylesheet">
   <link rel="stylesheet" href="tiger-adventure.css">
   <link rel="stylesheet" href="speechbubble.css">
+  <script type="text/javascript" src="audio.js"></script>
   <script type="text/javascript" src="draw.js"></script>
   <script type="text/javascript" src="high-score.js"></script>
   <script type="text/javascript" src="game.js"></script>
@@ -103,10 +104,16 @@
 
   let isGameStarted = false;
   let highScores = JSON.parse(localStorage.getItem('highScores')) || [];
-  let gamePaused = false; // Variable to track game state
+  let gamePaused = true; // Variable to track game state
   let timerInterval; // Variable to hold timer interval ID
   let speedIncreaseInterval; // Variable to hold speed increase interval ID
   let drawInterval; // Variable to hold draw interval ID
+
+  setTimeout(() => {
+    gamePaused = false
+  }, [1250])
+
+
 
   const backgroundLayer = document.getElementById('backgroundLayer');
   const backgroundImage = new Image();

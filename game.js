@@ -45,7 +45,9 @@ function restartGame() {
     const playerName = document.getElementById('playerNamePopup').value;
     const timeElapsed = Math.floor((Date.now() - startTime) / 1000); // Calculate time elapsed in seconds
     document.getElementById('gameOverPopup').style.display = 'none';
-    gamePaused = false; // Unpause the game
+    setTimeout(() => {
+      gamePaused = false
+    }, [2000])
     tigerX = width / 2;
     startTime = Date.now();
     level = 1;
@@ -61,7 +63,7 @@ function restartGame() {
     clearInterval(drawInterval); // Clear the draw interval
     timerInterval = setInterval(updateTimer, 1000); // Restart the timer
     speedIncreaseInterval = setInterval(increaseLevelAndSpeed, speedIncrementDuration); // Restart the speed increase interval
-    drawInterval = requestAnimationFrame(draw); // Restart the draw interval
+    // drawInterval = requestAnimationFrame(draw); // Restart the draw interval
     if (playerName.trim() !== '') {
       saveHighScore(playerName, timeElapsed);
       document.getElementById('playerNamePopup').value = '';
