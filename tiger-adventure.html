@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tiger Dodge</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #f8f8f8;
+    font-family: Arial, sans-serif;
+  }
+  canvas {
+    display: block;
+  }
+  #highScoreTable {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border-collapse: collapse;
+    background-color: #f8f8f8;
+    padding: 20px;
+  }
+  #highScoreTable th, #highScoreTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  #backgroundLayer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.5;
+  }
+  .popup-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  .popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  #levelDisplay {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 18px;
+    background-color: #f8f8f8;
+    padding: 20px;
+  }
+  #timerDiv {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    font-size: 18px;
+    background-color: white;
+    padding: 20px;
+  }
+</style>
+</head>
+<body>
+<div id="backgroundLayer"></div>
+<canvas id="gameCanvas"></canvas>
+<div id="highScoreDiv">
+  <table id="highScoreTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Score</th>
+      </tr>
+    </thead>
+    <tbody id="highScoreList"></tbody>
+  </table>
+</div>
+<div id="timerDiv">Timer: 0s</div>
+<div id="gameOverPopup" class="popup-container">
+  <div class="popup-content">
+    <p>Game Over! Your score: <span id="finalScore"></span></p>
+    <p>Enter your name:</p>
+    <input type="text" id="playerNamePopup" placeholder="Enter your name">
+    <button onclick="restartGame()">Play Again</button>
+  </div>
+</div>
+<div id="levelDisplay">Level: 1</div>
+<script>
+  const canvas = document.getElementById('gameCanvas');
+  const ctx = canvas.getContext('2d');
+
+  const width = canvas.width = window.innerWidth;
+  const height = canvas.height = window.innerHeight - 100;
+
+  let tigerX = width / 2;
+  const tigerY = height - 50;
+  const tigerSize = 40; // Pixel size of the tiger
+  const tigerColor = '#FFA500'; // Orange color
+
+  let isLeftArrowPressed = false;
+  let isRightArrowPressed = false;
+
+  let obstacles = [];
+  let obstacleSpeed = 2;
+  const minObstacleWidth = 20;
+  const maxObstacleWidth = 50;
+  const minObstacleHeight = 20;
+  const maxObstacleHeight = 20;
+  const minObstacleSpeed = 4;
+  const maxObstacleSpeed = 8;
+  const numObstacles = 20;
+
+  let score = 0;
+  let startTime = null;
+  let level = 1;
+  let levelStartTime = null;
+  const levelDuration = 10 * 1000; // 10 secs
+  const speedIncrementDuration = 10000; // 10 seconds
+
+  let highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+  let gamePaused = false; // Variable to track game state
+  let timerInterval; // Variable to hold timer interval ID
+  let speedIncreaseInterval; // Variable to hold speed increase interval ID
+  let drawInterval; // Variable to hold draw interval ID
+
+  const backgroundLayer = document.getElementById('backgroundLayer');
+  const backgroundImage = new Image();
+  backgroundImage.src = 'Jungle.jpg'; // Parallax background image
+  let backgroundOffset = 0;
+
+  function drawBackground() {
+    backgroundLayer.style.background = `url('${backgroundImage.src}')`;
+    backgroundLayer.style.backgroundSize = 'cover';
+    backgroundLayer.style.backgroundPosition = `center ${backgroundOffset}px`;
+    backgroundOffset += 1; // Adjust speed of parallax effect
+    requestAnimationFrame(drawBackground);
+  }
+
+  function createObstaclesIfNeeded() {
+    if (obstacles.length === 0 || obstacles.every(obstacle => obstacle.y > height)) {
+      obstacles = [];
+      for (let i = 0; i < numObstacles; i++) {
+        const obstacleWidth = Math.random() * (maxObstacleWidth - minObstacleWidth) + minObstacleWidth;
+        const obstacleHeight = Math.random() * (maxObstacleHeight - minObstacleHeight) + minObstacleHeight;
+        const obstacleX = Math.random() * (width - obstacleWidth);
+        const obstacleY = -obstacleHeight; // Start obstacles from top of the screen
+        const obstacleSpeed = Math.random() * (maxObstacleSpeed - minObstacleSpeed) + minObstacleSpeed;
+        obstacles.push({ x: obstacleX, y: obstacleY, width: obstacleWidth, height: obstacleHeight, speed: obstacleSpeed });
+      }
+    }
+  }
+
+  function drawTiger(x, y, size) {
+    // Tiger's body
+    ctx.fillStyle = tigerColor;
+    ctx.fillRect(x + 12, y + 4, 16, 4);
+    ctx.fillRect(x + 8, y + 8, 24, 4);
+    ctx.fillRect(x + 4, y + 12, 32, 16);
+    ctx.fillRect(x, y + 28, 40, 4);
+    ctx.fillRect(x + 4, y + 32, 8, 4);
+    ctx.fillRect(x + 28, y + 32, 8, 4);
+    ctx.fillRect(x + 8, y + 36, 2, 4);
+    ctx.fillRect(x + 10, y + 36, 20, 4);
+    ctx.fillRect(x + 30, y + 36, 2, 4);
+
+    // Tiger's head
+    ctx.fillRect(x + 12, y, 16, 8);
+    ctx.fillRect(x + 8, y + 4, 4, 4);
+    ctx.fillRect(x + 20, y + 4, 4, 4);
+    ctx.fillRect(x + 10, y + 8, 2, 4);
+    ctx.fillRect(x + 18, y + 8, 2, 4);
+    ctx.fillRect(x + 6, y + 12, 4, 2);
+    ctx.fillRect(x + 10, y + 12, 2, 2);
+    ctx.fillRect(x + 18, y + 12, 2, 2);
+    ctx.fillRect(x + 22, y + 12, 4, 2);
+    ctx.fillRect(x + 4, y + 14, 4, 2);
+    ctx.fillRect(x + 10, y + 14, 2, 2);
+    ctx.fillRect(x + 18, y + 14, 2, 2);
+    ctx.fillRect(x + 24, y + 14, 4, 2);
+    ctx.fillRect(x + 4, y + 16, 2, 2);
+    ctx.fillRect(x + 6, y + 16, 20, 2);
+    ctx.fillRect(x + 24, y + 16, 2, 2);
+    ctx.fillRect(x + 2, y + 18, 2, 4);
+    ctx.fillRect(x + 6, y + 18, 20, 4);
+    ctx.fillRect(x + 24, y + 18, 2, 4);
+    ctx.fillRect(x, y + 20, 2, 6);
+    ctx.fillRect(x + 2, y + 20, 2, 2);
+    ctx.fillRect(x + 8, y + 20, 2, 2);
+    ctx.fillRect(x + 18, y + 20, 2, 2);
+    ctx.fillRect(x + 26, y + 20, 2, 2);
+    ctx.fillRect(x + 28, y + 20, 2, 2);
+    ctx.fillRect(x, y + 22, 32, 2);
+    ctx.fillRect(x + 2, y + 24, 2, 2);
+    ctx.fillRect(x + 8, y + 24, 2, 2);
+    ctx.fillRect(x + 18, y + 24, 2, 2);
+    ctx.fillRect(x + 26, y + 24, 2, 2);
+    ctx.fillRect(x + 30, y + 24, 2, 2);
+    ctx.fillRect(x + 4, y + 26, 2, 2);
+    ctx.fillRect(x + 10, y + 26, 2, 2);
+    ctx.fillRect(x + 20, y + 26, 2, 2);
+    ctx.fillRect(x + 28, y + 26, 2, 2);
+  }
+
+  function drawCokeCan(obstacle) {
+    // Draw the coke can
+    ctx.fillStyle = 'red'; // Color of the coke can
+    // Draw top of the can
+    ctx.fillRect(obstacle.x + 12, obstacle.y, 16, 4);
+    // Draw sides of the can
+    ctx.fillRect(obstacle.x + 8, obstacle.y + 4, 4, 16);
+    ctx.fillRect(obstacle.x + 28, obstacle.y + 4, 4, 16);
+    // Draw bottom of the can
+    ctx.fillRect(obstacle.x + 8, obstacle.y + 20, 24, 4);
+  }
+
+  function draw() {
+    if (!gamePaused) { // Only draw when the game is not paused
+      ctx.clearRect(0, 0, width, height);
+      drawTiger(tigerX, tigerY, tigerSize);
+
+      createObstaclesIfNeeded(); // Create obstacles if needed
+
+      obstacles.forEach(obstacle => {
+        // ctx.fillStyle = 'red';
+        // ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+        drawCokeCan(obstacle); // Draw the coke can
+        obstacle.y += obstacle.speed;
+        if (
+          tigerX < obstacle.x + obstacle.width &&
+          tigerX + tigerSize > obstacle.x &&
+          tigerY < obstacle.y + obstacle.height &&
+          tigerY + tigerSize > obstacle.y
+        ) {
+          document.getElementById('finalScore').textContent = getScore(); // Corrected line
+          document.getElementById('gameOverPopup').style.display = 'flex';
+          gamePaused = true; // Pause the game
+          clearInterval(timerInterval); // Stop the timer
+          clearInterval(speedIncreaseInterval); // Stop the speed increase
+          cancelAnimationFrame(drawInterval); // Stop the draw loop
+        }
+      });
+
+      if (isLeftArrowPressed && tigerX > 0) {
+        tigerX -= 5;
+      }
+      if (isRightArrowPressed && tigerX < width - tigerSize) {
+        tigerX += 5;
+      }
+
+      drawInterval = requestAnimationFrame(draw);
+    }
+  }
+
+  function getScore() {
+    const timeElapsed = Math.floor((Date.now() - startTime) / 1000); // Time in seconds
+    return timeElapsed + 's';
+  }
+
+  function increaseLevelAndSpeed() {
+    level++;
+    document.getElementById('levelDisplay').innerText = 'Level: ' + level;
+    obstacleSpeed += 0.5;
+  }
+
+  document.addEventListener('keydown', function(event) {
+    if (event.code === 'ArrowLeft') {
+      isLeftArrowPressed = true;
+    } else if (event.code === 'ArrowRight') {
+      isRightArrowPressed = true;
+    }
+  });
+
+  document.addEventListener('keyup', function(event) {
+    if (event.code === 'ArrowLeft') {
+      isLeftArrowPressed = false;
+    } else if (event.code === 'ArrowRight') {
+      isRightArrowPressed = false;
+    }
+  });
+
+  function displayHighScores() {
+    const highScoreList = document.getElementById('highScoreList');
+    highScoreList.innerHTML = '';
+    highScores.sort((a, b) => b.score - a.score);
+    highScores.slice(0, 5).forEach(entry => {
+      const row = document.createElement('tr');
+      row.innerHTML = `<td>${entry.name}</td><td>${entry.score}</td>`;
+      highScoreList.appendChild(row);
+    });
+  }
+
+  function saveHighScore(playerName, score) {
+    highScores.push({ name: playerName, score: score });
+    localStorage.setItem('highScores', JSON.stringify(highScores));
+    displayHighScores();
+  }
+
+  function restartGame() {
+    const playerName = document.getElementById('playerNamePopup').value;
+    if (playerName.trim() === '') {
+      alert('Please enter your name!');
+      return;
+    }
+    const timeElapsed = Math.floor((Date.now() - startTime) / 1000); // Calculate time elapsed in seconds
+    saveHighScore(playerName, timeElapsed); // Save high score with correct name and score
+    document.getElementById('gameOverPopup').style.display = 'none';
+    gamePaused = false; // Unpause the game
+    tigerX = width / 2;
+    startTime = Date.now();
+    level = 1;
+    document.getElementById('levelDisplay').innerText = 'Level: ' + level;
+    obstacleSpeed = 2;
+    obstacles = []; // Reset obstacles
+    createObstaclesIfNeeded(); // Create new obstacles
+    score = 0; // Reset the score
+    updateTimer(); // Update the timer display
+    clearInterval(timerInterval); // Clear the timer interval
+    clearInterval(speedIncreaseInterval); // Clear the speed increase interval
+    clearInterval(drawInterval); // Clear the draw interval
+    timerInterval = setInterval(updateTimer, 1000); // Restart the timer
+    speedIncreaseInterval = setInterval(increaseLevelAndSpeed, speedIncrementDuration); // Restart the speed increase interval
+    drawInterval = requestAnimationFrame(draw); // Restart the draw interval
+}
+
+  createObstaclesIfNeeded();
+  displayHighScores();
+  drawBackground();
+  draw();
+
+  // Start timer when the game starts
+  startTime = Date.now();
+  timerInterval = setInterval(updateTimer, 1000); // Start the timer
+
+  // Increase level and speed every 10 seconds
+  speedIncreaseInterval = setInterval(increaseLevelAndSpeed, speedIncrementDuration);
+//   speedIncreaseInterval = setInterval(() => {
+//     level++;
+//     document.getElementById('levelDisplay').innerText = 'Level: ' + level;
+//     increaseLevelAndSpeed(); // Also increase the speed
+// }, speedIncrementDuration); // Change interval to 10000 milliseconds (10 seconds)
+
+  function updateTimer() {
+    const timeElapsed = Math.floor((Date.now() - startTime) / 1000); // Time in seconds
+    document.getElementById('timerDiv').innerText = 'Time: ' + timeElapsed + 's';
+  }
+</script>
+</body>
+</html>
