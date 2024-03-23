@@ -1,9 +1,9 @@
-function playBeep() {
+function playBeep(timeElapsed) {
     /*if you want to beep without using a wave file*/
   var context = new AudioContext();
   var oscillator = context.createOscillator();
   oscillator.type = "square";
-  oscillator.frequency.value = 400;
+  oscillator.frequency.value = (timeElapsed * 10);
   oscillator.connect(context.destination);
   oscillator.start();
   // Beep for 500 milliseconds
