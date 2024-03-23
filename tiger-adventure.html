@@ -120,6 +120,12 @@
   // backgroundImage.src = 'Jungle.jpg'; // Parallax background image
   let backgroundOffset = 0;
 
+  document.addEventListener('keydown', function(event) {
+    if (event.code === 'Enter' && !isGameStarted) {
+      startGame()
+    }
+  });
+
   drawBackground();
   displayHighScores();
 </script>
