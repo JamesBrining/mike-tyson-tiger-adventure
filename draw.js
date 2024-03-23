@@ -83,7 +83,7 @@ function drawBackground() {
         // ctx.fillStyle = 'red';
         // ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
         const boxingGlove = new Image();
-        boxingGlove.src = 'boxing_glove_main.png';
+        boxingGlove.src = 'assets/boxing_glove_main.png';
         ctx.drawImage(boxingGlove, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
         obstacle.y += obstacle.speed;
         if (
