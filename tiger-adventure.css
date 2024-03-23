@@ -84,13 +84,6 @@ body {
     content: '⏳';
   }
 
-  button {
-    display: block;
-    top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  }
-
 @keyframes spin {
     from {transform:rotate(0deg);}
     to {transform:rotate(360deg);}
