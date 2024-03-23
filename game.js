@@ -68,3 +68,34 @@ function restartGame() {
         
     }
 }
+
+function startGame(){
+  isGameStarted = true
+  document.getElementById("startScreen").style.display = 'none'
+  document.addEventListener('keydown', function(event) {
+    if (event.code === 'ArrowLeft') {
+      isLeftArrowPressed = true;
+    } else if (event.code === 'ArrowRight') {
+      isRightArrowPressed = true;
+    }
+  });
+
+  document.addEventListener('keyup', function(event) {
+    if (event.code === 'ArrowLeft') {
+      isLeftArrowPressed = false;
+    } else if (event.code === 'ArrowRight') {
+      isRightArrowPressed = false;
+    }
+  });
+
+  createObstaclesIfNeeded();
+  draw();
+
+  // Start timer when the game starts
+  startTime = Date.now();
+  timerInterval = setInterval(updateTimer, 1000); // Start the timer
+
+  // Increase level and speed every 10 seconds
+  
+  speedIncreaseInterval = setInterval(increaseLevelAndSpeed, speedIncrementDuration);
+}

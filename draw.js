@@ -113,8 +113,6 @@ function drawBackground() {
       if(tysonX >= (width - tysonSize)){
         tysonDirection = 'left';
       }
-
-      console.log(tysonX);
       
       drawInterval = requestAnimationFrame(draw);
     }
