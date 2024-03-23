@@ -121,8 +121,12 @@
   let backgroundOffset = 0;
 
   document.addEventListener('keydown', function(event) {
-    if (event.code === 'Enter' && !isGameStarted) {
-      startGame()
+    if (event.code === 'Enter') {
+      if(!isGameStarted){
+        startGame()
+      }else if(gamePaused){
+        restartGame()
+      }
     }
   });
 
