@@ -119,7 +119,6 @@ function drawBackground() {
       });
 
     
-
       
     }
     drawInterval = requestAnimationFrame(draw);
