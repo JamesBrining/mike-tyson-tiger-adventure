@@ -77,15 +77,45 @@ function drawBackground() {
       tiger.src = 'assets/tyson_tiger.png';
       ctx.drawImage(tiger, tigerX, tigerY, tigerSize, tigerSize);
 
+      
+      
+
       createObstaclesIfNeeded(); // Create obstacles if needed
 
+      if(Math.random() < 0.009) {
+        createPowerupsIfNeeded()
+      }
+
+      const powerup = powerups[0]
+
+      
+
+      if(powerups.length > 0) {
+        const timerPowerup = new Image()
+        timerPowerup.src = 'assets/clock.png'
+        ctx.drawImage(timerPowerup, powerup.x, powerup.y, powerup.width, powerup.height)
+        powerup.y += powerup.speed;
+      }
+
       obstacles.forEach(obstacle => {
-        // ctx.fillStyle = 'red';
-        // ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
         const boxingGlove = new Image();
         boxingGlove.src = 'assets/boxing_glove_main.png';
         ctx.drawImage(boxingGlove, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
         obstacle.y += obstacle.speed;
+        if(powerup) {
+          if(
+            tigerX < powerup.x + powerup.width &&
+            tigerX + tigerSize > powerup.x &&
+            tigerY < powerup.y + powerup.height &&
+            tigerY + tigerSize > powerup.y
+          ) {
+            isTimePowerupActive = true
+            
+            setTimeout(() => {
+              isTimePowerupActive = false
+            }, 5000)
+          }
+        }
         if (
           tigerX < obstacle.x + obstacle.width &&
           tigerX + tigerSize > obstacle.x &&

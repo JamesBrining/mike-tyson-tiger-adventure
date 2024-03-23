@@ -57,6 +57,9 @@
   const maxObstacleSpeed = 8;
   const numObstacles = 15;
 
+  let powerups = []
+  let powerupSpeed = 1
+
   let score = 0;
   let startTime = null;
   let level = 1;
@@ -70,27 +73,48 @@
   let speedIncreaseInterval; // Variable to hold speed increase interval ID
   let drawInterval; // Variable to hold draw interval ID
 
+  let isTimePowerupActive = false
+
   const backgroundLayer = document.getElementById('backgroundLayer');
   const backgroundImage = new Image();
-  backgroundImage.src = 'Jungle.jpg'; // Parallax background image
+  // backgroundImage.src = 'Jungle.jpg'; // Parallax background image
   let backgroundOffset = 0;
 
   function createObstaclesIfNeeded() {
     if (obstacles.length === 0 || obstacles.every(obstacle => obstacle.y > height)) {
       obstacles = [];
+      // console.log(obstacles)
       for (let i = 0; i < numObstacles; i++) {
         const obstacleWidth = Math.random() * (maxObstacleWidth - minObstacleWidth) + minObstacleWidth;
         const obstacleHeight = Math.random() * (maxObstacleHeight - minObstacleHeight) + minObstacleHeight;
         const obstacleX = Math.random() * (width - obstacleWidth);
         const obstacleY = -obstacleHeight; // Start obstacles from top of the screen
-        const obstacleSpeed = Math.random() * (maxObstacleSpeed - minObstacleSpeed) + minObstacleSpeed;
+        console.log((Math.random() * (maxObstacleSpeed - minObstacleSpeed) + minObstacleSpeed) / 2)
+        console.log(isTimePowerupActive)
+        const obstacleSpeed = isTimePowerupActive ? (Math.random() * (maxObstacleSpeed - minObstacleSpeed) + minObstacleSpeed) / 2 : Math.random() * (maxObstacleSpeed - minObstacleSpeed) + minObstacleSpeed;
         obstacles.push({ x: obstacleX, y: obstacleY, width: obstacleWidth, height: obstacleHeight, speed: obstacleSpeed });
+      }
+    }
+  }
+
+  function createPowerupsIfNeeded() {
+    if(powerups.length !== 1 && Math.random() < 0.5) {
+      powerups = []
+      for (let i = 0; i < 1; i++){
+        const powerupWidth = 55;
+        const powerupHeight = 55
+        const powerupX = Math.random() * (width - powerupWidth)
+        const powerupY = -powerupHeight
+        const powerupSpeed = 3.56
+
+        powerups.push({ x: powerupX, y: powerupY, width: powerupWidth, height: powerupHeight, speed: powerupSpeed})
       }
     }
   }
 
   function increaseLevelAndSpeed() {
     level++;
+    powerups = []
     document.getElementById('levelDisplay').innerText = 'Level: ' + level;
     obstacleSpeed += 0.5;
   }
@@ -127,6 +151,7 @@
     document.getElementById('levelDisplay').innerText = 'Level: ' + level;
     obstacleSpeed = 2;
     obstacles = []; // Reset obstacles
+    powerups = []
     createObstaclesIfNeeded(); // Create new obstacles
     score = 0; // Reset the score
     updateTimer(); // Update the timer display
@@ -148,6 +173,7 @@
   timerInterval = setInterval(updateTimer, 1000); // Start the timer
 
   // Increase level and speed every 10 seconds
+  
   speedIncreaseInterval = setInterval(increaseLevelAndSpeed, speedIncrementDuration);
 //   speedIncreaseInterval = setInterval(() => {
 //     level++;
