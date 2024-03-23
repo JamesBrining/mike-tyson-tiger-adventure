@@ -146,3 +146,10 @@ input {
   width: 75%;
   height: 75%;
 }
+
+#bigMikeSpeechContainer{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
