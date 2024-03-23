@@ -62,11 +62,14 @@ function drawBackground() {
         ctx.drawImage(obstacleImage, obstacle.x, obstacle.y, levelImage.width, levelImage.height);
         obstacle.y += obstacle.speed;
         if (
+          // game running
           tigerX < obstacle.x + obstacle.width &&
           tigerX + tigerSize > obstacle.x &&
           tigerY < obstacle.y + obstacle.height &&
           tigerY + tigerSize > obstacle.y
         ) {
+          // game over
+          playGameOverSound();
           document.getElementById('finalScore').textContent = getScore(); // Corrected line
           document.getElementById('gameOverPopup').style.display = 'flex';
           gamePaused = true; // Pause the game
