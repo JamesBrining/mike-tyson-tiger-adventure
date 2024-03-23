@@ -70,6 +70,9 @@
   const maxObstacleSpeed = 8;
   const numObstacles = 1;
 
+  let powerups = []
+  let powerupSpeed = 1
+
   let score = 0;
   let startTime = null;
   let level = 1;
@@ -85,7 +88,7 @@
 
   const backgroundLayer = document.getElementById('backgroundLayer');
   const backgroundImage = new Image();
-  backgroundImage.src = 'Jungle.jpg'; // Parallax background image
+  // backgroundImage.src = 'Jungle.jpg'; // Parallax background image
   let backgroundOffset = 0;
 
   document.addEventListener('keydown', function(event) {
@@ -114,6 +117,7 @@
   timerInterval = setInterval(updateTimer, 1000); // Start the timer
 
   // Increase level and speed every 10 seconds
+  
   speedIncreaseInterval = setInterval(increaseLevelAndSpeed, speedIncrementDuration);
 </script>
 </body>

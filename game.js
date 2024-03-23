@@ -1,3 +1,5 @@
+let isTimePowerupActive = false
+
 function createObstaclesIfNeeded() {
     if (obstacles.length === 0 || obstacles.every(obstacle => obstacle.y > height)) {
       obstacles = [];
@@ -6,11 +8,31 @@ function createObstaclesIfNeeded() {
         const obstacleHeight = Math.random() * (maxObstacleHeight - minObstacleHeight) + minObstacleHeight;
         const obstacleX = tysonX;
         const obstacleY = tysonY;
-        const obstacleSpeed = Math.random() * (maxObstacleSpeed - minObstacleSpeed) + minObstacleSpeed;
-        const obstacleDirection = 'left'
-        obstacles.push({ x: obstacleX, y: obstacleY, width: obstacleWidth, height: obstacleHeight, speed: obstacleSpeed, direction: obstacleDirection });
+        const obstacleSpeed = isTimePowerupActive ? (Math.random() * (maxObstacleSpeed - minObstacleSpeed) + minObstacleSpeed) / 4 : Math.random() * (maxObstacleSpeed - minObstacleSpeed) + minObstacleSpeed;
+        obstacles.push({ x: obstacleX, y: obstacleY, width: obstacleWidth, height: obstacleHeight, speed: obstacleSpeed });
       }
     }
+}
+
+if(isTimePowerupActive) {
+  obstacles.map((obstacle) => {
+    obstacle.speed = obstacle.speed / 4
+  })
+}
+
+function createPowerupsIfNeeded() {
+  if(powerups.length !== 1 && Math.random() < 0.5) {
+    powerups = []
+    for (let i = 0; i < 1; i++){
+      const powerupWidth = 30;
+      const powerupHeight = 30
+      const powerupX = Math.random() * (width - powerupWidth)
+      const powerupY = -powerupHeight
+      const powerupSpeed = 2
+
+      powerups.push({ x: powerupX, y: powerupY, width: powerupWidth, height: powerupHeight, speed: powerupSpeed})
+    }
+  }
 }
 
 function increaseLevelAndSpeed() {
@@ -35,6 +57,7 @@ function restartGame() {
     document.getElementById('levelDisplay').innerText = 'Level: ' + level;
     obstacleSpeed = 2;
     obstacles = []; // Reset obstacles
+    powerups = []
     createObstaclesIfNeeded(); // Create new obstacles
     score = 0; // Reset the score
     updateTimer(); // Update the timer display
