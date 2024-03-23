@@ -24,9 +24,13 @@ function drawBackground() {
       obstacles.forEach(obstacle => {
         // ctx.fillStyle = 'red';
         // ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-        const boxingGlove = new Image();
-        boxingGlove.src = 'assets/boxing_glove_main.png';
-        ctx.drawImage(boxingGlove, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+        const images = [{src: 'boxing_glove_main.png', height: 34, width: 24}, {src:'beer.png', height: 58, width: 14}, {src: 'belt.png', height: 26, width: 62}];
+        const index = (level - 1) % images.length;
+        const obstacleImage = new Image();
+        const levelImage = images[index]
+        console.log(levelImage);
+        obstacleImage.src = `assets/${levelImage.src}`;
+        ctx.drawImage(obstacleImage, obstacle.x, obstacle.y, levelImage.width, levelImage.height);
         obstacle.y += obstacle.speed;
         if (
           tigerX < obstacle.x + obstacle.width &&
