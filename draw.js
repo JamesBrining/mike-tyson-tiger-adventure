@@ -8,7 +8,20 @@ function drawBackground() {
     backgroundLayer.style.backgroundRepeat = 'no-repeat'
   }
 
+  const fps = 60
+  let now;
+  let then = Date.now()
+  const interval = 1000/fps
+  let delta
+
   function draw() {
+    drawInterval = requestAnimationFrame(draw);  
+    now = Date.now()
+    delta = now - then
+ 
+    if(delta > interval) {
+      then = now - (delta % interval)
+
       ctx.clearRect(0, 0, width, height);
 
       const tiger = new Image();
@@ -36,9 +49,6 @@ function drawBackground() {
           tysonX -= 5;  
         }
       }
-
-      console.log(window.screen.availHeight, 'availHeight')
-      console.log(window.screen.availWidth, 'availWidth')
         
       if(tysonX < (width - tysonSize) + 20 && tysonDirection === 'right'){
        
@@ -142,8 +152,8 @@ function drawBackground() {
           cancelAnimationFrame(drawInterval);
         }
       });
+     }
     }
-    drawInterval = requestAnimationFrame(draw);
   }
 
   const mikeTysonQuotes = [
