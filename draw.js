@@ -17,7 +17,7 @@ function drawBackground() {
       ctx.drawImage(tiger, tigerX, tigerY, tigerSize, tigerSize);
 
       const mikeTyson = new Image()
-      mikeTyson.src = 'assets/mike_tyson.png'
+      mikeTyson.src = (level % 5 === 0) ? 'assets/green-rob.jpg' : 'assets/mike_tyson.png'
       ctx.drawImage(mikeTyson, tysonX, tysonY, tysonSize, tysonSize);
       if (isLeftArrowPressed && tigerX > 0) {
         tigerX -= 5;

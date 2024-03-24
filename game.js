@@ -46,6 +46,7 @@ function restartGame() {
     const timeElapsed = Math.floor((Date.now() - startTime) / 1000); // Calculate time elapsed in seconds
     document.getElementById('gameOverPopup').style.display = 'none';
     document.getElementById('hourglass').classList.add('spin')
+    document.getElementById('bigMikeSpeechContainer').style.display = 'flex';
     setTimeout(() => {
       gamePaused = false
     }, [2000])
