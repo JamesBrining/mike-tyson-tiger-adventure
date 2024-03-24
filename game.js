@@ -54,7 +54,7 @@ function restartGame() {
     document.getElementById('bigMikeSpeechContainer').style.display = 'flex';
     setTimeout(() => {
       gamePaused = false
-    }, [2000])
+    }, [1250])
     tigerX = width / 2;
     startTime = Date.now();
    
