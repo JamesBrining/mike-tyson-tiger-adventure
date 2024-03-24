@@ -52,6 +52,7 @@
         </p>
         <p>Grab Powerups:
           <img src="assets/clock.png"/>
+          <img src="assets/blue_shroom.png" style="height: 15px;"/>
         </p>
         <button id="startButton" onclick="startGame()">🕹️ Start 🕹️</button>
       </div>
@@ -90,8 +91,8 @@
 
   let tigerX = width / 2;
   const tigerY = height - 50;
-  const tigerSize = 30;
-  const tigerColor = '#FFA500';
+  let tigerSize = 30; // Pixel size of the tiger
+  const tigerColor = '#FFA500'; // Orange color
 
   let tysonX = width / 2;
   const tysonY = 25;
