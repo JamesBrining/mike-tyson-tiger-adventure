@@ -54,9 +54,10 @@ function restartGame() {
     document.getElementById('bigMikeSpeechContainer').style.display = 'flex';
     setTimeout(() => {
       gamePaused = false
-    }, [2000])
+    }, [1250])
     tigerX = width / 2;
     startTime = Date.now();
+   
     level = 1;
     document.getElementById('levelDisplay').innerText = 'Level: ' + level;
     obstacleSpeed = 2;
