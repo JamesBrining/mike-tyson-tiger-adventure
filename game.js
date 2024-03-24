@@ -105,10 +105,5 @@ function startGame(){
 
   startTime = Date.now();
   timerInterval = setInterval(updateTimer, 1000);
-
-    setInterval(displayRandomQuote, 10000);
-    displayRandomQuote();
-  
-  
   speedIncreaseInterval = setInterval(increaseLevelAndSpeed, speedIncrementDuration);
 }

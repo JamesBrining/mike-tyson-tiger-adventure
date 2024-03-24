@@ -187,8 +187,7 @@ function drawBackground() {
     const speechBubble = document.getElementById('speech-bubble-bottom');
     speechBubble.textContent = randomQuote;
     speechBubble.style.opacity = '1'; 
-
-    setTimeout(() => {
-      speechBubble.style.opacity = '0';
-    }, 5000);
   }
+
+    setInterval(displayRandomQuote, 10000);
+    displayRandomQuote();
