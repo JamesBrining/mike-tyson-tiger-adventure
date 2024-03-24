@@ -184,3 +184,11 @@ input {
 .start-boxing-l {
   margin-right: -20px;
 }
+
+#startButton {
+  margin-top: 50px;
+}
+
+#audioButton{
+  margin-bottom: 50px;
+}
