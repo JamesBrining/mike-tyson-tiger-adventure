@@ -29,8 +29,9 @@ function createPowerupsIfNeeded() {
       const powerupX = Math.random() * (width - powerupWidth)
       const powerupY = -powerupHeight
       const powerupSpeed = 2
+      const powerupType = Math.random() < 0.5 ? 'slowTime' : 'shrinkTiger'
 
-      powerups.push({ x: powerupX, y: powerupY, width: powerupWidth, height: powerupHeight, speed: powerupSpeed})
+      powerups.push({ x: powerupX, y: powerupY, width: powerupWidth, height: powerupHeight, speed: powerupSpeed, type: powerupType})
     }
   }
 }

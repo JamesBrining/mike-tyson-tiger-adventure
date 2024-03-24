@@ -67,12 +67,17 @@ function drawBackground() {
       }
 
       const powerup = powerups[0]
-      
+
 
       if(powerups.length > 0) {
-        const timerPowerup = new Image()
-        timerPowerup.src = 'assets/clock.png'
-        ctx.drawImage(timerPowerup, powerup.x, powerup.y, powerup.width, powerup.height)
+        let powerupImage = new Image()
+        if(powerup.type === 'slowTime'){
+          powerupImage.src = 'assets/clock.png'
+        }
+        if(powerup.type === 'shrinkTiger'){
+          powerupImage.src = 'assets/blue_shroom.png'
+        }
+        ctx.drawImage(powerupImage, powerup.x, powerup.y, powerup.width, powerup.height)
         powerup.y += powerup.speed;
       }
 
@@ -84,12 +89,25 @@ function drawBackground() {
           tigerY < powerup.y + powerup.height &&
           tigerY + tigerSize > powerup.y
         ) {
-          isTimePowerupActive = true
+          if(powerup.type === 'slowTime'){
+            isTimePowerupActive = true
+          }
+          if(powerup.type === 'shrinkTiger'){
+            tigerSize = 15
+          }
           powerup.x = -9999 // flakey move to side
           setTimeout(() => {
-            isTimePowerupActive = false
+            if(powerup.type === 'slowTime'){
+              isTimePowerupActive = false
+            }
+            if(powerup.type === 'shrinkTiger'){
+              tigerSize = 30
+            }
             powerups = []
           }, 5000)
+        }
+        if(powerup.y > height - powerup.height){
+          powerups = []
         }
       }
 
@@ -104,7 +122,7 @@ function drawBackground() {
         ctx.drawImage(obstacleImage, obstacle.x, obstacle.y, levelImage.width, levelImage.height);
         obstacle.y += obstacle.speed;
         if (
-          // game running
+          // game runningf
           tigerX < obstacle.x + obstacle.width &&
           tigerX + tigerSize > obstacle.x &&
           tigerY < obstacle.y + obstacle.height &&
