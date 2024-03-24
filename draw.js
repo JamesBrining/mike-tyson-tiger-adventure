@@ -16,7 +16,11 @@ function drawBackground() {
       ctx.drawImage(tiger, tigerX, tigerY, tigerSize, tigerSize);
 
       const mikeTyson = new Image()
-      mikeTyson.src = (level % 5 === 0) ? 'assets/green-rob.jpg' : 'assets/mike_tyson.png'
+      if(level % 5 === 0){
+        isRob = true;
+      }
+      mikeTyson.src = (isRob) ? 'assets/big-rob.png' : 'assets/mike_tyson.png'
+      document.getElementById('bigMike').src = (isRob) ? 'assets/big-rob.png' : 'assets/big_mike_tyson.png'
       ctx.drawImage(mikeTyson, tysonX, tysonY, tysonSize, tysonSize);
       if (isLeftArrowPressed && tigerX > 0) {
         tigerX -= 5;
@@ -139,10 +143,19 @@ function drawBackground() {
     "Hard times fall upon everybody. Whatever it is, we're going to get out of it.",
     "Everybody you fight is not your enemy and everybody that helps you is not your friend."
   ];
+
+  const robQuotes = [
+    "Why am I the only one wearing a high-vis vest?",
+    "Breakfast will be in about 10 minutes guys.",
+    "Why are you taking a picture of my face?",
+    "Anyone got any rubbish for me?",
+    "Hi, I'm Rob."
+  ]
   
   function displayRandomQuote() {
-    const randomIndex = Math.floor(Math.random() * mikeTysonQuotes.length);
-    const randomQuote = mikeTysonQuotes[randomIndex];
+    const randomIndex = isRob ? Math.floor(Math.random() * robQuotes.length) 
+      : Math.floor(Math.random() * mikeTysonQuotes.length);
+    const randomQuote = (isRob) ? robQuotes[randomIndex] : mikeTysonQuotes[randomIndex];
     const speechBubble = document.getElementById('speech-bubble-bottom');
     speechBubble.textContent = randomQuote;
     speechBubble.style.opacity = '1'; 
