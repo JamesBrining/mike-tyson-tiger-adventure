@@ -39,6 +39,9 @@ function drawBackground() {
         }
       }
 
+      console.log(window.screen.availHeight, 'availHeight')
+      console.log(window.screen.availWidth, 'availWidth')
+        
       if(tysonX < (width - tysonSize) + 20 && tysonDirection === 'right'){
        
         if(isTimePowerupActive){
