@@ -186,8 +186,4 @@ function drawBackground() {
     const randomQuote = (isRob) ? robQuotes[randomIndex] : mikeTysonQuotes[randomIndex];
     const speechBubble = document.getElementById('speech-bubble-bottom');
     speechBubble.textContent = randomQuote;
-    speechBubble.style.opacity = '1'; 
   }
-
-    setInterval(displayRandomQuote, 10000);
-    displayRandomQuote();
