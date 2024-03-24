@@ -15,10 +15,8 @@ function drawBackground() {
       tiger.src = 'assets/tyson_tiger.png';
       ctx.drawImage(tiger, tigerX, tigerY, tigerSize, tigerSize);
 
-      const mikeTyson = new Image()
-      if(level % 3 === 0){
-        isRob = true;
-      }
+      const mikeTyson = new Image();
+      isRob = (level % 3 === 0) ? true : false;
       mikeTyson.src = (isRob) ? 'assets/big-rob.png' : 'assets/mike_tyson.png'
       document.getElementById('bigMike').src = (isRob) ? 'assets/big-rob.png' : 'assets/big_mike_tyson.png'
       ctx.drawImage(mikeTyson, tysonX, tysonY, tysonSize, tysonSize);
