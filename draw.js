@@ -15,10 +15,9 @@ function drawBackground() {
   let delta
 
   function draw() {
-    drawInterval = requestAnimationFrame(draw);  
     now = Date.now()
     delta = now - then
- 
+
     if(delta > interval) {
       then = now - (delta % interval)
 
@@ -149,6 +148,9 @@ function drawBackground() {
           document.getElementById('speech-bubble-bottom').textContent = '';
           document.getElementById('speech-bubble-bottom').style.opacity = 0;
           gamePaused = true;
+          // now = Date.now()
+          // then = Date.now()
+          // delta = now - then
           clearInterval(timerInterval);
           clearInterval(speedIncreaseInterval);
           cancelAnimationFrame(drawInterval);
@@ -156,6 +158,7 @@ function drawBackground() {
       });
      }
     }
+    drawInterval = requestAnimationFrame(draw);  
   }
 
   const mikeTysonQuotes = [

@@ -57,6 +57,7 @@ function restartGame() {
     }, [2000])
     tigerX = width / 2;
     startTime = Date.now();
+   
     level = 1;
     document.getElementById('levelDisplay').innerText = 'Level: ' + level;
     obstacleSpeed = 2;
