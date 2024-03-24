@@ -80,3 +80,29 @@ function playIntroMusic() {
     const endTime = startTime + melody.length * beatDuration;
     oscillator.stop(endTime);
 }
+
+function playPowerUpSound() {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    const audioContext = new AudioContext();
+
+    // Create oscillator and gain node
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+
+    // Connect oscillator to gain node and gain node to the destination
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+
+    // Set oscillator properties
+    oscillator.type = 'sine'; // Sine wave
+    oscillator.frequency.setValueAtTime(100, audioContext.currentTime); // Initial frequency
+    oscillator.frequency.exponentialRampToValueAtTime(1000, audioContext.currentTime + 0.5); // Ramp up to higher frequency
+    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime); // Initial volume
+    gainNode.gain.exponentialRampToValueAtTime(1, audioContext.currentTime + 0.5); // Ramp up to higher volume
+
+    // Start the oscillator
+    oscillator.start();
+
+    // Stop the oscillator after the ramp-up
+    oscillator.stop(audioContext.currentTime + 0.8);
+}

@@ -85,6 +85,7 @@ function drawBackground() {
           tigerY + tigerSize > powerup.y
         ) {
           isTimePowerupActive = true
+          playPowerUpSound();
           powerup.x = -9999 // flakey move to side
           setTimeout(() => {
             isTimePowerupActive = false
