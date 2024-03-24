@@ -41,9 +41,12 @@ function increaseLevelAndSpeed() {
     level++;
     document.getElementById('levelDisplay').innerText = 'Level: ' + level;
     obstacleSpeed += 0.5;
+    document.getElementById('speech-bubble-bottom').textContent = '';
+    document.getElementById('speech-bubble-bottom').style.opacity = 0;
 }
 
 function restartGame() {
+    isRob = false;
     const playerName = document.getElementById('playerNamePopup').value;
     const timeElapsed = Math.floor((Date.now() - startTime) / 1000);
     document.getElementById('gameOverPopup').style.display = 'none';

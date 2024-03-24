@@ -133,15 +133,14 @@ function drawBackground() {
           document.getElementById('gameOverPopup').style.display = 'flex';
           document.getElementById('bigMikeSpeechContainer').style.display = 'none';
           document.getElementById('hourglass').classList.remove('spin')
+          document.getElementById('speech-bubble-bottom').textContent = '';
+          document.getElementById('speech-bubble-bottom').style.opacity = 0;
           gamePaused = true;
           clearInterval(timerInterval);
           clearInterval(speedIncreaseInterval);
           cancelAnimationFrame(drawInterval);
         }
       });
-
-    
-      
     }
     drawInterval = requestAnimationFrame(draw);
   }
