@@ -9,7 +9,6 @@ function drawBackground() {
   }
 
   function draw() {
-    // Only draw when the game is not paused
       ctx.clearRect(0, 0, width, height);
 
       const tiger = new Image();
@@ -17,7 +16,11 @@ function drawBackground() {
       ctx.drawImage(tiger, tigerX, tigerY, tigerSize, tigerSize);
 
       const mikeTyson = new Image()
-      mikeTyson.src = (level % 5 === 0) ? 'assets/green-rob.jpg' : 'assets/mike_tyson.png'
+      if(level % 3 === 0){
+        isRob = true;
+      }
+      mikeTyson.src = (isRob) ? 'assets/big-rob.png' : 'assets/mike_tyson.png'
+      document.getElementById('bigMike').src = (isRob) ? 'assets/big-rob.png' : 'assets/big_mike_tyson.png'
       ctx.drawImage(mikeTyson, tysonX, tysonY, tysonSize, tysonSize);
       if (isLeftArrowPressed && tigerX > 0) {
         tigerX -= 5;
@@ -56,11 +59,10 @@ function drawBackground() {
       }
 
       setTimeout(() => {
-        createObstaclesIfNeeded(); // Create obstacles if needed
+        createObstaclesIfNeeded();
       }, [1250])
 
       if (!gamePaused) { 
-      // createPowerupsIfNeeded()
 
       if(Math.random() < 0.0025) {
         createPowerupsIfNeeded()
@@ -95,7 +97,8 @@ function drawBackground() {
           if(powerup.type === 'shrinkTiger'){
             tigerSize = 15
           }
-          powerup.x = -9999 // flakey move to side
+          playPowerUpSound();
+          powerup.x = -9999
           setTimeout(() => {
             if(powerup.type === 'slowTime'){
               isTimePowerupActive = false
@@ -112,8 +115,6 @@ function drawBackground() {
       }
 
       obstacles.forEach(obstacle => {
-        // ctx.fillStyle = 'red';
-        // ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
         const images = [{src: 'boxing_glove_main.png', height: 17, width: 12}, {src:'beer.png', height: 29, width: 7}, {src: 'belt.png', height: 13, width: 31}];
         const index = (level - 1) % images.length;
         const obstacleImage = new Image();
@@ -122,22 +123,20 @@ function drawBackground() {
         ctx.drawImage(obstacleImage, obstacle.x, obstacle.y, levelImage.width, levelImage.height);
         obstacle.y += obstacle.speed;
         if (
-          // game runningf
           tigerX < obstacle.x + obstacle.width &&
           tigerX + tigerSize > obstacle.x &&
           tigerY < obstacle.y + obstacle.height &&
           tigerY + tigerSize > obstacle.y
         ) {
-          // game over
           playGameOverSound();
-          document.getElementById('finalScore').textContent = getScore(); // Corrected line
+          document.getElementById('finalScore').textContent = getScore();
           document.getElementById('gameOverPopup').style.display = 'flex';
           document.getElementById('bigMikeSpeechContainer').style.display = 'none';
           document.getElementById('hourglass').classList.remove('spin')
-          gamePaused = true; // Pause the game
-          clearInterval(timerInterval); // Stop the timer
-          clearInterval(speedIncreaseInterval); // Stop the speed increase
-          cancelAnimationFrame(drawInterval); // Stop the draw loop
+          gamePaused = true;
+          clearInterval(timerInterval);
+          clearInterval(speedIncreaseInterval);
+          cancelAnimationFrame(drawInterval);
         }
       });
 
@@ -162,23 +161,24 @@ function drawBackground() {
     "Hard times fall upon everybody. Whatever it is, we're going to get out of it.",
     "Everybody you fight is not your enemy and everybody that helps you is not your friend."
   ];
+
+  const robQuotes = [
+    "Why am I the only one wearing a high-vis vest?",
+    "Breakfast will be in about 10 minutes guys.",
+    "Why are you taking a picture of my face?",
+    "Anyone got any rubbish for me?",
+    "Hi, I'm Rob."
+  ]
   
   function displayRandomQuote() {
-    const randomIndex = Math.floor(Math.random() * mikeTysonQuotes.length);
-    const randomQuote = mikeTysonQuotes[randomIndex];
-    const speechBubble = document.getElementById('speech-bubble');
-    speechBubble.textContent = randomQuote; // Set the speech bubble text to the random quote
-    speechBubble.style.opacity = '1'; // Make the speech bubble visible
-  
-    // // Hide the speech bubble after 5 seconds
+    const randomIndex = isRob ? Math.floor(Math.random() * robQuotes.length) 
+      : Math.floor(Math.random() * mikeTysonQuotes.length);
+    const randomQuote = (isRob) ? robQuotes[randomIndex] : mikeTysonQuotes[randomIndex];
+    const speechBubble = document.getElementById('speech-bubble-bottom');
+    speechBubble.textContent = randomQuote;
+    speechBubble.style.opacity = '1'; 
+
     setTimeout(() => {
       speechBubble.style.opacity = '0';
     }, 5000);
-  }
-
-  
-  if(!gamePaused)
-  {
-    setInterval(displayRandomQuote, 10000);
-    displayRandomQuote();
   }

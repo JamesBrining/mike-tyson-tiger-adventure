@@ -35,15 +35,25 @@
     </div>
     <div id="startScreen" style="display: flex;" class="popup-container superPixelFont">
       <div class="popup-content">
-        <button class="audio-button" onclick="playIntroMusic()">🔉</button>
+        <button id="audioButton" onclick="playIntroMusic()">🔉</button>
         <div class="start-image-container">
           <img src="assets/mike_tyson.png" class="start-image" />
           <span class="start-boxing-l" style="transform: rotate(90deg);">🥊</span>
           <span class="start-boxing-r" style="transform: scaleX(-1) rotate(90deg);">🥊</span> 
           <img src="assets/tyson_tiger.png" style="margin-top: 5px;" class="start-image" />
         </div>
+        <p>---------------------------------------</p>
         <p>Welcome to Mike Tyson's Tiger Adventure</p>
-        <button onclick="startGame()">🕹️ Start 🕹️</button>
+        <p>---------------------------------------</p>
+        <p>Avoid Obstacles:
+          <img src="assets/boxing_glove_main.png"/> 
+          <img src="assets/beer.png"/>
+          <img src="assets/belt.png"/>
+        </p>
+        <p>Grab Powerups:
+          <img src="assets/clock.png"/>
+        </p>
+        <button id="startButton" onclick="startGame()">🕹️ Start 🕹️</button>
       </div>
     </div>
     <div id="gameOverPopup" class="popup-container superPixelFont">
@@ -52,7 +62,7 @@
         <p>Enter your name:</p>
         <div id="bigMikeSpeechContainerEndGame">
           <div id="speech-bubble" class="bubble bottom">You thuck!</div> 
-          <img src="assets/big_mike_tyson.png" id="bigMike"/>
+          <img src="assets/big_mike_tyson.png" id="bigMikeEndGame"/>
         </div>
         <div class="inputContainer">
           <input type="text" id="playerNamePopup" placeholder="Enter your name">
@@ -66,7 +76,7 @@
   </div>
   <div id="rightContainer">
     <div id="bigMikeSpeechContainer">
-      <div id="speech-bubble" class="bubble bottom">Hi, I'm Mike Tyson</div> 
+      <div id="speech-bubble-bottom" class="bubble bottom">Hi, I'm Mike Tyson</div> 
       <img src="assets/big_mike_tyson.png" id="bigMike"/>
     </div>
   </div>
@@ -108,19 +118,18 @@
   let startTime = null;
   let level = 1;
   let levelStartTime = null;
-  const levelDuration = 10 * 1000; // 10 secs
-  const speedIncrementDuration = 10000; // 10 seconds
+  const levelDuration = 10 * 1000;
+  const speedIncrementDuration = 10000;
 
   let isGameStarted = false;
   let highScores = JSON.parse(localStorage.getItem('highScores')) || [];
-  let gamePaused = true; // Variable to track game state
-  let timerInterval; // Variable to hold timer interval ID
-  let speedIncreaseInterval; // Variable to hold speed increase interval ID
-  let drawInterval; // Variable to hold draw interval ID
+  let gamePaused = true;
+  let timerInterval;
+  let speedIncreaseInterval;
+  let drawInterval;
 
   const backgroundLayer = document.getElementById('backgroundLayer');
   const backgroundImage = new Image();
-  // backgroundImage.src = 'Jungle.jpg'; // Parallax background image
   let backgroundOffset = 0;
 
   document.addEventListener('keydown', function(event) {

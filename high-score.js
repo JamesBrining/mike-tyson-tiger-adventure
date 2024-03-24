@@ -1,5 +1,5 @@
 function getScore() {
-    const timeElapsed = Math.floor((Date.now() - startTime) / 1000); // Time in seconds
+    const timeElapsed = Math.floor((Date.now() - startTime) / 1000);
     return timeElapsed + 's';
   }
 

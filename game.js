@@ -1,4 +1,5 @@
 let isTimePowerupActive = false
+let isRob = false;
 
 function createObstaclesIfNeeded() {
     if (obstacles.length === 0 || obstacles.every(obstacle => obstacle.y > height)) {
@@ -44,7 +45,7 @@ function increaseLevelAndSpeed() {
 
 function restartGame() {
     const playerName = document.getElementById('playerNamePopup').value;
-    const timeElapsed = Math.floor((Date.now() - startTime) / 1000); // Calculate time elapsed in seconds
+    const timeElapsed = Math.floor((Date.now() - startTime) / 1000);
     document.getElementById('gameOverPopup').style.display = 'none';
     document.getElementById('hourglass').classList.add('spin')
     document.getElementById('bigMikeSpeechContainer').style.display = 'flex';
@@ -56,17 +57,17 @@ function restartGame() {
     level = 1;
     document.getElementById('levelDisplay').innerText = 'Level: ' + level;
     obstacleSpeed = 2;
-    obstacles = []; // Reset obstacles
+    obstacles = [];
     powerups = []
-    createObstaclesIfNeeded(); // Create new obstacles
-    score = 0; // Reset the score
-    updateTimer(); // Update the timer display
-    clearInterval(timerInterval); // Clear the timer interval
-    clearInterval(speedIncreaseInterval); // Clear the speed increase interval
-    clearInterval(drawInterval); // Clear the draw interval
-    timerInterval = setInterval(updateTimer, 1000); // Restart the timer
-    speedIncreaseInterval = setInterval(increaseLevelAndSpeed, speedIncrementDuration); // Restart the speed increase interval
-    // drawInterval = requestAnimationFrame(draw); // Restart the draw interval
+    createObstaclesIfNeeded();
+    score = 0;
+    updateTimer();
+    clearInterval(timerInterval);
+    clearInterval(speedIncreaseInterval);
+    clearInterval(drawInterval);
+    timerInterval = setInterval(updateTimer, 1000);
+    speedIncreaseInterval = setInterval(increaseLevelAndSpeed, speedIncrementDuration);
+
     if (playerName.trim() !== '') {
       saveHighScore(playerName, timeElapsed);
       document.getElementById('playerNamePopup').value = '';
@@ -99,11 +100,12 @@ function startGame(){
     gamePaused = false
   }, [1250])
 
-  // Start timer when the game starts
   startTime = Date.now();
-  timerInterval = setInterval(updateTimer, 1000); // Start the timer
+  timerInterval = setInterval(updateTimer, 1000);
 
-  // Increase level and speed every 10 seconds
+    setInterval(displayRandomQuote, 10000);
+    displayRandomQuote();
+  
   
   speedIncreaseInterval = setInterval(increaseLevelAndSpeed, speedIncrementDuration);
 }
