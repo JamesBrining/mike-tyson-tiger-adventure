@@ -1,4 +1,5 @@
 let isTimePowerupActive = false
+let isRob = false;
 
 function createObstaclesIfNeeded() {
     if (obstacles.length === 0 || obstacles.every(obstacle => obstacle.y > height)) {
