@@ -35,15 +35,25 @@
     </div>
     <div id="startScreen" style="display: flex;" class="popup-container superPixelFont">
       <div class="popup-content">
-        <button class="audio-button" onclick="playIntroMusic()">🔉</button>
+        <button id="audioButton" onclick="playIntroMusic()">🔉</button>
         <div class="start-image-container">
           <img src="assets/mike_tyson.png" class="start-image" />
           <span class="start-boxing-l" style="transform: rotate(90deg);">🥊</span>
           <span class="start-boxing-r" style="transform: scaleX(-1) rotate(90deg);">🥊</span> 
           <img src="assets/tyson_tiger.png" style="margin-top: 5px;" class="start-image" />
         </div>
+        <p>---------------------------------------</p>
         <p>Welcome to Mike Tyson's Tiger Adventure</p>
-        <button onclick="startGame()">🕹️ Start 🕹️</button>
+        <p>---------------------------------------</p>
+        <p>Avoid Obstacles:
+          <img src="assets/boxing_glove_main.png"/> 
+          <img src="assets/beer.png"/>
+          <img src="assets/belt.png"/>
+        </p>
+        <p>Grab Powerups:
+          <img src="assets/clock.png"/>
+        </p>
+        <button id="startButton" onclick="startGame()">🕹️ Start 🕹️</button>
       </div>
     </div>
     <div id="gameOverPopup" class="popup-container superPixelFont">
@@ -66,7 +76,7 @@
   </div>
   <div id="rightContainer">
     <div id="bigMikeSpeechContainer">
-      <div id="speech-bubble" class="bubble bottom">Hi, I'm Mike Tyson</div> 
+      <div id="speech-bubble-bottom" class="bubble bottom">Hi, I'm Mike Tyson</div> 
       <img src="assets/big_mike_tyson.png" id="bigMike"/>
     </div>
   </div>
