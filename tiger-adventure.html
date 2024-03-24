@@ -90,8 +90,8 @@
 
   let tigerX = width / 2;
   const tigerY = height - 50;
-  const tigerSize = 30; // Pixel size of the tiger
-  const tigerColor = '#FFA500'; // Orange color
+  const tigerSize = 30;
+  const tigerColor = '#FFA500';
 
   let tysonX = width / 2;
   const tysonY = 25;
@@ -118,19 +118,18 @@
   let startTime = null;
   let level = 1;
   let levelStartTime = null;
-  const levelDuration = 10 * 1000; // 10 secs
-  const speedIncrementDuration = 10000; // 10 seconds
+  const levelDuration = 10 * 1000;
+  const speedIncrementDuration = 10000;
 
   let isGameStarted = false;
   let highScores = JSON.parse(localStorage.getItem('highScores')) || [];
-  let gamePaused = true; // Variable to track game state
-  let timerInterval; // Variable to hold timer interval ID
-  let speedIncreaseInterval; // Variable to hold speed increase interval ID
-  let drawInterval; // Variable to hold draw interval ID
+  let gamePaused = true;
+  let timerInterval;
+  let speedIncreaseInterval;
+  let drawInterval;
 
   const backgroundLayer = document.getElementById('backgroundLayer');
   const backgroundImage = new Image();
-  // backgroundImage.src = 'Jungle.jpg'; // Parallax background image
   let backgroundOffset = 0;
 
   document.addEventListener('keydown', function(event) {
