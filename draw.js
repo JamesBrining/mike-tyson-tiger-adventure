@@ -148,7 +148,7 @@ function drawBackground() {
   function displayRandomQuote() {
     const randomIndex = Math.floor(Math.random() * mikeTysonQuotes.length);
     const randomQuote = mikeTysonQuotes[randomIndex];
-    const speechBubble = document.getElementById('speech-bubble');
+    const speechBubble = document.getElementById('speech-bubble-bottom');
     speechBubble.textContent = randomQuote; // Set the speech bubble text to the random quote
     speechBubble.style.opacity = '1'; // Make the speech bubble visible
   
@@ -156,11 +156,4 @@ function drawBackground() {
     setTimeout(() => {
       speechBubble.style.opacity = '0';
     }, 5000);
-  }
-
-  
-  if(!gamePaused)
-  {
-    setInterval(displayRandomQuote, 10000);
-    displayRandomQuote();
   }

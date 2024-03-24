@@ -103,6 +103,9 @@ function startGame(){
   timerInterval = setInterval(updateTimer, 1000); // Start the timer
 
   // Increase level and speed every 10 seconds
+    setInterval(displayRandomQuote, 10000);
+    displayRandomQuote();
+  
   
   speedIncreaseInterval = setInterval(increaseLevelAndSpeed, speedIncrementDuration);
 }
