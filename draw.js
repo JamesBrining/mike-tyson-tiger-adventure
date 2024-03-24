@@ -16,7 +16,7 @@ function drawBackground() {
       ctx.drawImage(tiger, tigerX, tigerY, tigerSize, tigerSize);
 
       const mikeTyson = new Image()
-      if(level % 5 === 0){
+      if(level % 3 === 0){
         isRob = true;
       }
       mikeTyson.src = (isRob) ? 'assets/big-rob.png' : 'assets/mike_tyson.png'
