@@ -96,7 +96,7 @@ button {
   margin: 0 auto;
 }
 
-.audio-button {
+#audioButton {
   background-color: transparent!important;
 }
 
